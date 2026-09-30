@@ -1,0 +1,23 @@
+.sw-card__content .swag-paypal-pos__continue-setup h6 {
+  color: #52667a;
+  font-size: 16px;
+  font-weight: bold;
+  letter-spacing: 0.1px;
+  line-height: 22px;
+}
+
+.sw-card__content .swag-paypal-pos__continue-setup p {
+  font-size: 14px;
+  font-weight: normal;
+  letter-spacing: 0.1px;
+  line-height: 22px;
+}
+
+.sw-card__content .swag-paypal-pos__continue-setup p:first-of-type {
+  margin-bottom: 20px;
+}
+
+.sw-card__content .swag-paypal-pos__continue-setup p:last-of-type {
+  margin-bottom: 31px;
+}
+/*# sourceMappingURL=swag-paypal-pos-continue-setup.css.map */

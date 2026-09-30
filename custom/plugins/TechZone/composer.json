@@ -1,0 +1,21 @@
+{
+    "name": "techzone/theme",
+    "description": "TechZone storefront customizations",
+    "version": "1.0.0",
+    "type": "shopware-platform-plugin",
+    "license": "proprietary",
+    "require": {
+        "shopware/core": "~6.3.0"
+    },
+    "extra": {
+        "shopware-plugin-class": "TechZone\\TechZone",
+        "label": {
+            "en-GB": "TechZone"
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "TechZone\\": "src/"
+        }
+    }
+}

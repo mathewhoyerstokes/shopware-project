@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,iCAAiC,CAAC;EAC9B,OAAO,EAAE,IAAI;CAChB;;AAED,AAAA,oCAAoC,CAAC;EACjC,WAAW,EAAE,IAAI;CACpB",
+    "sources": [
+        "swag-paypal-payment-detail.scss"
+    ],
+    "names": [],
+    "file": "swag-paypal-payment-detail.css"
+}

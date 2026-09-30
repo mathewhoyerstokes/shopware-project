@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AACI,4BADwB,CACxB,yCAAyC,CAAC;EACtC,QAAQ,EAAE,MAAM;CACnB;;AAEA,AACG,mCADI,CACJ,eAAe,CAAC;EACZ,OAAO,EAAE,CAAC;CACb",
+    "sources": [
+        "swag-paypal-pos-detail-runs.scss"
+    ],
+    "names": [],
+    "file": "swag-paypal-pos-detail-runs.css"
+}

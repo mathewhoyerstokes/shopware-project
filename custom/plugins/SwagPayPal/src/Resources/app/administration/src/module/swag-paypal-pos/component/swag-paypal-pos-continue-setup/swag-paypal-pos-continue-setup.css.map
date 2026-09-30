@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AACI,iBADa,CAAC,gCAAgC,CAC9C,EAAE,CAAC;EACC,KAAK,EAAE,OAAiB;EACxB,SAAS,EAAE,IAAI;EACf,WAAW,EAAE,IAAI;EACjB,cAAc,EAAE,KAAK;EACrB,WAAW,EAAE,IAAI;CACpB;;AAPL,AASI,iBATa,CAAC,gCAAgC,CAS9C,CAAC,CAAC;EACE,SAAS,EAAE,IAAI;EACf,WAAW,EAAE,MAAM;EACnB,cAAc,EAAE,KAAK;EACrB,WAAW,EAAE,IAAI;CASpB;;AAtBL,AAeQ,iBAfS,CAAC,gCAAgC,CAS9C,CAAC,AAMI,cAAc,CAAC;EACZ,aAAa,EAAE,IAAI;CACtB;;AAjBT,AAmBQ,iBAnBS,CAAC,gCAAgC,CAS9C,CAAC,AAUI,aAAa,CAAC;EACX,aAAa,EAAE,IAAI;CACtB",
+    "sources": [
+        "swag-paypal-pos-continue-setup.scss"
+    ],
+    "names": [],
+    "file": "swag-paypal-pos-continue-setup.css"
+}

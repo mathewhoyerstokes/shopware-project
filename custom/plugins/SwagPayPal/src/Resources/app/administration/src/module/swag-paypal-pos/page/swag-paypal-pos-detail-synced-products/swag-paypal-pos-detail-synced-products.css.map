@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AACI,uCADmC,CACnC,oDAAoD,CAAC;EACjD,QAAQ,EAAE,MAAM;CACnB",
+    "sources": [
+        "swag-paypal-pos-detail-synced-products.scss"
+    ],
+    "names": [],
+    "file": "swag-paypal-pos-detail-synced-products.css"
+}
