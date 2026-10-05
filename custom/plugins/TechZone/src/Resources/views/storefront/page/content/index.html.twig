@@ -1,0 +1,6 @@
+{% sw_extends '@Storefront/storefront/page/content/index.html.twig' %}
+
+{% block page_content %}
+    {% sw_include '@Storefront/storefront/component/custom/product-finder.html.twig' %}
+    {{ parent() }}
+{% endblock %}

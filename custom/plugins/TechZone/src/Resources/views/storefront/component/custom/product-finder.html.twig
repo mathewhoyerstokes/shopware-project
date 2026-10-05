@@ -1,0 +1,55 @@
+<div class="product-finder"
+     data-product-finder="true"
+     data-listing-url="{{ path('frontend.navigation.page', { navigationId: page.header.navigation.active.id }) }}">
+    <div class="product-finder__header">
+        <h3 class="product-finder__title">Find Your Perfect Matches</h3>
+        <span class="product-finder__step" data-finder-step-indicator="true">Step 1 of 2</span>
+    </div>
+
+    <div class="product-finder__panel" data-finder-step="1">
+        <p class="product-finder__question">What is your primary focus area or usage requirement?</p>
+        <div class="product-finder__options">
+            <label class="product-finder__option">
+                <span class="product-finder__choice">
+                    <input type="radio" name="focus" value="c9070215ac3f4486be6a9dfe3271bb6f" class="product-finder__radio">
+                    <span>Daily Utility / Casual Wear</span>
+                </span>
+                <span class="product-finder__arrow">&rarr;</span>
+            </label>
+            <label class="product-finder__option">
+                <span class="product-finder__choice">
+                    <input type="radio" name="focus" value="f894bac9ce934cbab5652a133b2f814e" class="product-finder__radio">
+                    <span>High Performance / Enterprise Straining</span>
+                </span>
+                <span class="product-finder__arrow">&rarr;</span>
+            </label>
+        </div>
+    </div>
+
+    <div class="product-finder__panel is-hidden" data-finder-step="2">
+        <p class="product-finder__question">Select your color profile aesthetic preference:</p>
+        <div class="product-finder__options product-finder__options--split">
+            <label class="product-finder__option">
+                <span class="product-finder__choice">
+                    <input type="radio" name="color" value="ac89a0a5b20f48e1aa409342825c9e60" class="product-finder__radio">
+                    <span>Stealth Black</span>
+                </span>
+            </label>
+            <label class="product-finder__option">
+                <span class="product-finder__choice">
+                    <input type="radio" name="color" value="c853554eee0941d583b4358c82f8d64a" class="product-finder__radio">
+                    <span>Alpine White</span>
+                </span>
+            </label>
+        </div>
+    </div>
+
+    <div class="product-finder__footer">
+        <button type="button" class="product-finder__back is-hidden" data-finder-back="true">
+            Back
+        </button>
+        <button type="button" class="product-finder__next" data-finder-next="true" disabled>
+            Continue
+        </button>
+    </div>
+</div>
