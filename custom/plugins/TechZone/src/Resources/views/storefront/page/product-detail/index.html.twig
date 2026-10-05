@@ -1,0 +1,8 @@
+{% sw_extends '@Storefront/storefront/page/product-detail/index.html.twig' %}
+
+{% block page_product_detail_content %}
+    {{ parent() }}
+    
+    {# Inject our sticky bar macro down into the layout lifecycle #}
+    {% sw_include '@Storefront/storefront/component/custom/sticky-buy-bar.html.twig' %}
+{% endblock %}

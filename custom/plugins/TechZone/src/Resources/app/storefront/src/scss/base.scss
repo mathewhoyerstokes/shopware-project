@@ -104,3 +104,128 @@
         transform: rotate(360deg);
     }
 }
+
+.sticky-buy-bar {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1030;
+    padding: 12px 24px;
+    background: #fff;
+    border-top: 1px solid #e5e7eb;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+    transform: translateY(100%);
+    transition: transform 0.3s ease-out;
+
+    &.is-visible {
+        transform: translateY(0);
+    }
+}
+
+.sticky-buy-bar__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    max-width: 1280px;
+    margin: 0 auto;
+}
+
+.sticky-buy-bar__product {
+    display: none;
+    align-items: center;
+
+    @media (min-width: 576px) {
+        display: flex;
+    }
+}
+
+.sticky-buy-bar__product > * + * {
+    margin-left: 12px;
+}
+
+.sticky-buy-bar__image {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.sticky-buy-bar__name {
+    display: block;
+    max-width: 280px;
+    overflow: hidden;
+    color: #111827;
+    font-size: 14px;
+    font-weight: 700;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.sticky-buy-bar__number {
+    color: #6b7280;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 12px;
+}
+
+.sticky-buy-bar__actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-left: auto;
+
+    @media (min-width: 576px) {
+        justify-content: flex-end;
+        width: auto;
+    }
+}
+
+.sticky-buy-bar__actions > * + * {
+    margin-left: 16px;
+}
+
+.sticky-buy-bar__price {
+    color: #111827;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.sticky-buy-bar__form {
+    display: flex;
+    align-items: center;
+}
+
+.sticky-buy-bar__form > * + * {
+    margin-left: 8px;
+}
+
+.sticky-buy-bar__quantity {
+    padding: 8px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    background: #f9fafb;
+    font-size: 14px;
+
+    &:focus {
+        outline: none;
+    }
+}
+
+.sticky-buy-bar__submit {
+    padding: 10px 20px;
+    border: 0;
+    border-radius: 8px;
+    background: #2563eb;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    transition: background-color 0.15s ease;
+
+    &:hover {
+        background: #1d4ed8;
+    }
+}
