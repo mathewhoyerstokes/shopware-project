@@ -118,10 +118,12 @@ $top-bar-height: 48px;
     }
 
     .main-navigation-link {
+        color: $color-text;
         font-weight: 600;
 
-        &.active,
         &:hover,
+        &:focus,
+        &.active,
         &.is-open {
             color: $color-text;
             font-weight: 600;
@@ -129,6 +131,22 @@ $top-bar-height: 48px;
             .main-navigation-link-text {
                 border-bottom-color: transparent;
             }
+        }
+    }
+}
+
+.navigation-offcanvas-link {
+    color: $color-text;
+
+    &.is-home-link,
+    &.is-back-link,
+    &.is-current-category,
+    &:hover,
+    &:focus {
+        color: $color-text;
+
+        .icon {
+            color: $color-text;
         }
     }
 }
