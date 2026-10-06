@@ -14,7 +14,11 @@ RUN apk --no-cache add \
         php7-session php7-simplexml php7-tokenizer php7-xml php7-xmlreader php7-xmlwriter \
         php7-zip php7-zlib php7-phar git \
         gnu-libiconv \
+    && ln -sf /usr/bin/php7 /usr/bin/php \
+    && curl -sS https://getcomposer.org/installer | php -- --2.2 --install-dir=/usr/bin --filename=composer \
     && adduser -u 1000 -D -h $PROJECT_ROOT sw6 sw6 \
+    && mkdir -p /var/cache/composer \
+    && chown -R sw6.sw6 /var/cache/composer \
     && rm /etc/nginx/conf.d/default.conf
 
 # Copy system configs
@@ -32,7 +36,9 @@ USER sw6
 
 ADD --chown=sw6 . .
 
-RUN APP_URL="http://localhost" DATABASE_URL="" bin/console assets:install \
+RUN printf '%s\n' '{' '  "config": {' '    "allow-plugins": true' '  }' '}' > "$COMPOSER_HOME/config.json" \
+    && composer install --no-dev --no-interaction --optimize-autoloader \
+    && APP_URL="http://localhost" DATABASE_URL="" bin/console assets:install \
     && rm -Rf var/cache \
     && touch install.lock \
     && mkdir -p var/cache
