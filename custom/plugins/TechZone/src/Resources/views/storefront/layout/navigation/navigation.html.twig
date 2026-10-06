@@ -1,0 +1,14 @@
+{% sw_extends '@Storefront/storefront/layout/navigation/navigation.html.twig' %}
+
+{% block layout_main_navigation_menu_items %}
+    {% for name in ['New In', 'Clothing', 'Accessories', 'Sale', 'About'] %}
+        <a class="nav-link main-navigation-link"
+           href="{{ path('frontend.home.page') }}"
+           itemprop="url"
+           title="{{ name }}">
+            <div class="main-navigation-link-text">
+                <span itemprop="name">{{ name }}</span>
+            </div>
+        </a>
+    {% endfor %}
+{% endblock %}

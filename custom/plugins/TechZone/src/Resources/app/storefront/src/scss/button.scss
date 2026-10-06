@@ -1,5 +1,10 @@
 @import 'variables';
 
+.btn,
+button {
+    border-radius: $button-radius;
+}
+
 .btn-primary,
 .btn-buy,
 .sticky-buy-bar__submit {

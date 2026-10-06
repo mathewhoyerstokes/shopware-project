@@ -110,6 +110,29 @@ $top-bar-height: 48px;
     }
 }
 
+.main-navigation {
+    display: block;
+
+    .main-navigation-menu {
+        justify-content: center;
+    }
+
+    .main-navigation-link {
+        font-weight: 600;
+
+        &.active,
+        &:hover,
+        &.is-open {
+            color: $color-text;
+            font-weight: 600;
+
+            .main-navigation-link-text {
+                border-bottom-color: transparent;
+            }
+        }
+    }
+}
+
 @include media-breakpoint-down(sm) {
     .top-bar {
         display: none;
