@@ -1,0 +1,23 @@
+@import 'variables';
+
+.btn-primary,
+.btn-buy,
+.sticky-buy-bar__submit {
+    background-color: $color-button;
+    border-color: $color-button;
+    color: $color-secondary;
+
+    &:hover,
+    &:focus {
+        background-color: $color-button-hover;
+        border-color: $color-button-hover;
+        color: $color-secondary;
+    }
+
+    &:not(:disabled):not(.disabled):active,
+    &:not(:disabled):not(.disabled).active {
+        background-color: $color-button-hover;
+        border-color: $color-button-hover;
+        color: $color-secondary;
+    }
+}

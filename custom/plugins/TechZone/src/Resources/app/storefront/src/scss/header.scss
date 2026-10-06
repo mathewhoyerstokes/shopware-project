@@ -18,23 +18,104 @@ $top-bar-height: 48px;
         display: contents;
     }
 
+    .top-bar-nav {
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+    }
+
+    .top-bar-nav-text {
+        display: block;
+        margin: 0;
+    }
+
     .top-bar-buy-link {
         color: $color-secondary;
     }
-
-}
-
-.top-bar-nav {
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-}
-
-.top-bar .top-bar-nav-text {
-    display: block;
-    margin: 0;
 }
 
 .header-main {
     margin-top: $top-bar-height;
+
+    .header-row {
+        display: flex;
+        align-items: center;
+        flex-wrap: nowrap;
+        position: relative;
+        margin: 0;
+        padding: 24px 0;
+    }
+
+    .header-logo-col,
+    .header-actions-col {
+        flex: 0 0 auto;
+        width: auto;
+        max-width: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .header-logo-col {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .header-logo-wordmark {
+        display: block;
+        color: $color-text;
+        font-size: 28px;
+        font-weight: 700;
+        letter-spacing: -0.04em;
+        line-height: 1;
+    }
+
+    .header-actions-col {
+        margin-left: auto;
+        color: $color-text;
+
+        > .row {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            flex-wrap: nowrap;
+            margin: 0;
+        }
+
+        .header-actions-btn {
+            color: $color-text;
+
+            &,
+            &:hover,
+            &:focus {
+                color: $color-text;
+
+                svg,
+                path {
+                    fill: $color-text;
+                    stroke: $color-text;
+                }
+            }
+        }
+
+        .header-cart-total {
+            color: $color-text;
+        }
+    }
+
+    .header-cart-btn {
+        display: inline-flex;
+        align-items: center;
+    }
+}
+
+@include media-breakpoint-down(sm) {
+    .top-bar {
+        display: none;
+    }
+
+    .header-main {
+        margin-top: 0;
+    }
 }
