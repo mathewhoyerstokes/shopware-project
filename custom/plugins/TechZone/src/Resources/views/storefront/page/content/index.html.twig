@@ -1,6 +1,10 @@
 {% sw_extends '@Storefront/storefront/page/content/index.html.twig' %}
 
 {% block page_content %}
+    {% if activeRoute == 'frontend.home.page' %}
+        {% sw_include '@Storefront/storefront/component/custom/hero.html.twig' %}
+    {% endif %}
+
     {% sw_include '@Storefront/storefront/component/custom/product-finder.html.twig' %}
     {{ parent() }}
 {% endblock %}
