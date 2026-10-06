@@ -1,0 +1,12 @@
+@import 'variables';
+
+// Product card and shared storefront styles.
+// Product cards use .product-box.
+.product-box {
+    font-size: 16px;
+
+    .product-name {
+        color: $color-primary;
+
+    }
+}

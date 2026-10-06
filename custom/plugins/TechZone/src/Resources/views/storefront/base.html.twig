@@ -31,6 +31,8 @@
         {% endblock %}
 
         {% block base_header %}
+            {% sw_include '@Storefront/storefront/layout/header/top-bar.html.twig' %}
+
             <header class="header-main">
                 {% block base_header_inner %}
                     <div class="container">
