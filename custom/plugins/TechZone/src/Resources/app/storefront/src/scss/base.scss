@@ -6,6 +6,37 @@ body {
     font-family: 'Inter', sans-serif;
 }
 
+.icon {
+    color: $color-text;
+
+    > svg {
+        fill: currentColor;
+
+        path,
+        use {
+            fill: currentColor;
+        }
+    }
+}
+
+input:not([type='checkbox']):not([type='radio']):not([type='hidden']):not([type='submit']):not([type='button']):not([type='reset']),
+textarea,
+select,
+.form-control,
+.custom-select {
+    border: 0;
+    border-radius: $button-radius;
+    background-color: $color-secondary;
+    box-shadow: none;
+
+    &:focus,
+    &:active {
+        border: 0;
+        box-shadow: none;
+        outline: none;
+    }
+}
+
 .product-quick-view-wrap {
     position: relative;
 

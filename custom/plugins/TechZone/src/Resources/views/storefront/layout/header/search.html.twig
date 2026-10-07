@@ -1,0 +1,18 @@
+{% sw_extends '@Storefront/storefront/layout/header/search.html.twig' %}
+
+{% block layout_header_search %}
+    <div class="collapse"
+         id="searchCollapse">
+        <div class="header-search">
+            <form action="{{ path('frontend.search.page') }}"
+                  method="get"
+                  data-search-form="true"
+                  data-url="{{ path('frontend.search.suggest') }}?search="
+                  class="header-search-form js-search-form">
+                {% block layout_header_search_input_group %}
+                    {{ parent() }}
+                {% endblock %}
+            </form>
+        </div>
+    </div>
+{% endblock %}

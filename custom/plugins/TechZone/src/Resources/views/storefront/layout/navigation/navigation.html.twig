@@ -25,13 +25,32 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row navigation-flyout-content">
-                        <div class="col">
-                            {% sw_include '@Storefront/storefront/layout/navigation/categories.html.twig' with {
-                                navigationTree: page.header.navigation.tree,
-                                page: page
-                            } only %}
-                        </div>
+                    <div class="home-nav-cards">
+                        {% for treeItem in page.header.navigation.tree %}
+                            {% set category = treeItem.category %}
+                            {% set name = category.translated.name %}
+                            {% set categoryUrl = category.type == 'link' ? category.translated.externalLink : seoUrl('frontend.navigation.page', { navigationId: category.id }) %}
+
+                            {% if category.type == 'folder' %}
+                                <div class="home-nav-card" title="{{ name }}">
+                            {% else %}
+                                <a class="home-nav-card"
+                                   href="{{ categoryUrl }}"
+                                   itemprop="url"
+                                   title="{{ name }}">
+                            {% endif %}
+                                    {% if category.media %}
+                                        <img class="home-nav-card-image"
+                                             src="{{ category.media|sw_encode_media_url }}"
+                                             alt="">
+                                    {% endif %}
+                                    <span class="home-nav-card-name">{{ name }}</span>
+                            {% if category.type == 'folder' %}
+                                </div>
+                            {% else %}
+                                </a>
+                            {% endif %}
+                        {% endfor %}
                     </div>
                 </div>
             </div>

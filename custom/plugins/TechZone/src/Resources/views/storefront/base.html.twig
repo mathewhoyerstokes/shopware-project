@@ -31,6 +31,7 @@
         {% endblock %}
 
         {% block base_header %}
+            <div class="header-sticky" data-sticky-header="true">
             {% sw_include '@Storefront/storefront/layout/header/top-bar.html.twig' %}
 
             <header class="header-main">
@@ -40,15 +41,60 @@
                     </div>
                 {% endblock %}
             </header>
+            </div>
+            <script>
+                (function () {
+                    var header = document.querySelector('[data-sticky-header]');
+                    if (!header) {
+                        return;
+                    }
+
+                    var toggleShadow = function () {
+                        header.classList.toggle('is-scrolled', window.scrollY > 0);
+                    };
+
+                    toggleShadow();
+                    window.addEventListener('scroll', toggleShadow, { passive: true });
+                })();
+
+                (function () {
+                    var searchButton = document.querySelector('.js-search-toggle-btn');
+                    var searchPanel = document.querySelector('#searchCollapse');
+                    var accountButton = document.querySelector('#accountWidget');
+                    var accountMenu = document.querySelector('.js-account-menu-dropdown');
+
+                    if (!searchButton || !searchPanel || !accountButton || !accountMenu) {
+                        return;
+                    }
+
+                    var closeSearch = function () {
+                        searchPanel.classList.remove('show');
+                        searchButton.classList.add('collapsed');
+                        searchButton.setAttribute('aria-expanded', 'false');
+                    };
+
+                    var closeAccount = function () {
+                        accountMenu.classList.remove('show');
+                        accountButton.classList.add('collapsed');
+                        accountButton.setAttribute('aria-expanded', 'false');
+                    };
+
+                    searchButton.addEventListener('click', function () {
+                        if (searchButton.classList.contains('collapsed')) {
+                            closeAccount();
+                        }
+                    });
+
+                    accountButton.addEventListener('click', function () {
+                        if (accountButton.getAttribute('aria-expanded') !== 'true') {
+                            closeSearch();
+                        }
+                    });
+                })();
+            </script>
         {% endblock %}
 
-        {% block base_navigation %}
-            <div class="nav-main">
-                {% block base_navigation_inner %}
-                    {% sw_include '@Storefront/storefront/layout/navigation/navigation.html.twig' %}
-                {% endblock %}
-            </div>
-        {% endblock %}
+        {% block base_navigation %}{% endblock %}
 
         {% block base_offcanvas_navigation %}
             {% if page.header.navigation %}

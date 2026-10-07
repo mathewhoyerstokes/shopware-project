@@ -9,7 +9,10 @@
                 </div>
             {% endblock %}
 
-           
+            <div class="header-nav-col">
+                {% sw_include '@Storefront/storefront/layout/navigation/navigation.html.twig' %}
+            </div>
+
             {% block layout_header_actions %}
                 <div class="col-12 order-1 col-sm-auto order-sm-2 header-actions-col">
                     <div class="row no-gutters">
@@ -43,6 +46,7 @@
                                         {% sw_icon 'search' %}
                                     </button>
                                 </div>
+                                {% sw_include '@Storefront/storefront/layout/header/search.html.twig' %}
                             </div>
                         {% endblock %}
 

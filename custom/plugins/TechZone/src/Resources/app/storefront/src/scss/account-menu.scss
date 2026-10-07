@@ -1,0 +1,36 @@
+@import 'variables';
+
+.account-menu-dropdown {
+    min-width: 240px;
+    padding: 8px 16px 16px;
+    border: 0;
+    border-radius: $button-radius;
+    background: $color-secondary;
+    box-shadow: none;
+
+    .account-menu-header {
+        padding: 12px 0 4px;
+        border: 0;
+        color: $color-text;
+    }
+
+    .account-menu-inner,
+    .account-aside-item,
+    .list-group-item,
+    .account-aside-footer {
+        border: 0;
+        background: transparent;
+    }
+
+    .account-menu-actions {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin-top: 12px;
+
+        .btn {
+            width: 100%;
+            margin: 0;
+        }
+    }
+}
