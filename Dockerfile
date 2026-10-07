@@ -1,5 +1,11 @@
 FROM alpine:3.10
 
+ENV APP_ENV=prod \
+    APP_URL=https://shopware-project.vercel.app \
+    APP_SECRET=vercel-build-placeholder \
+    MAILER_URL=null://localhost \
+    INSTANCE_ID=vercel \
+    DATABASE_URL=
 ENV COMPOSER_HOME=/var/cache/composer
 ENV PROJECT_ROOT=/sw6
 ENV ARTIFACTS_DIR=/artifacts
