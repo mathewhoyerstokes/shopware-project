@@ -18,7 +18,7 @@ RUN apk --no-cache add \
         php7-iconv php7-intl php7-json php7-mbstring \
         php7-mysqli php7-openssl php7-pdo_mysql \
         php7-session php7-simplexml php7-tokenizer php7-xml php7-xmlreader php7-xmlwriter \
-        php7-zip php7-zlib php7-phar git \
+        php7-zip php7-zlib php7-phar php7-opcache git \
         gnu-libiconv \
     && ln -sf /usr/bin/php7 /usr/bin/php \
     && curl -sS https://getcomposer.org/installer | php -- --2.2 --install-dir=/usr/bin --filename=composer \
@@ -49,7 +49,8 @@ RUN printf '%s\n' '{' '  "config": {' '    "allow-plugins": true' '  }' '}' > "$
     && cp -a custom/plugins/TechZone/src/Resources/public/. public/bundles/techzone/ \
     && rm -Rf var/cache \
     && touch install.lock \
-    && mkdir -p var/cache
+    && mkdir -p var/cache config/jwt \
+    && OPENSSL_CONF=/etc/ssl/openssl.cnf php -r '$key = openssl_pkey_new(["private_key_bits" => 2048, "private_key_type" => OPENSSL_KEYTYPE_RSA]); if ($key === false) { fwrite(STDERR, openssl_error_string() . PHP_EOL); exit(1); } openssl_pkey_export_to_file($key, "config/jwt/private.pem"); $details = openssl_pkey_get_details($key); file_put_contents("config/jwt/public.pem", $details["key"]); chmod("config/jwt/private.pem", 0660); chmod("config/jwt/public.pem", 0660);'
 
 # Expose the port nginx is reachable on
 EXPOSE 8000
