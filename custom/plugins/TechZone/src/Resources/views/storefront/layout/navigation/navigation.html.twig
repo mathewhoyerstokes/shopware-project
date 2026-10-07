@@ -1,14 +1,55 @@
 {% sw_extends '@Storefront/storefront/layout/navigation/navigation.html.twig' %}
 
-{% block layout_main_navigation_menu_items %}
-    {% for name in ['New In', 'Clothing', 'Accessories', 'Sale', 'About'] %}
-        <a class="nav-link main-navigation-link"
-           href="{{ path('frontend.home.page') }}"
-           itemprop="url"
-           title="{{ name }}">
-            <div class="main-navigation-link-text">
-                <span itemprop="name">{{ name }}</span>
+{% block layout_main_navigation_menu_home %}
+    <button type="button"
+            class="nav-link main-navigation-link home-link{% if controllerAction is same as('home') %} active{% endif %}"
+            data-flyout-menu-trigger="{{ context.salesChannel.navigationCategoryId }}"
+            title="{{ "general.homeLink"|trans|striptags }}">
+        <div class="main-navigation-link-text">
+            <span itemprop="name">{{ "general.homeLink"|trans|sw_sanitize }}</span>
+        </div>
+    </button>
+{% endblock %}
+
+{% block layout_main_navigation_menu_flyout_wrapper %}
+    <div class="navigation-flyouts">
+        {% if page.header.navigation.tree|length > 0 %}
+            <div class="navigation-flyout"
+                 data-flyout-menu-id="{{ context.salesChannel.navigationCategoryId }}">
+                <div class="container">
+                    <div class="row navigation-flyout-bar">
+                        <div class="col"></div>
+                        <div class="col-auto">
+                            <div class="navigation-flyout-close js-close-flyout-menu">
+                                {% sw_icon 'x' %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row navigation-flyout-content">
+                        <div class="col">
+                            {% sw_include '@Storefront/storefront/layout/navigation/categories.html.twig' with {
+                                navigationTree: page.header.navigation.tree,
+                                page: page
+                            } only %}
+                        </div>
+                    </div>
+                </div>
             </div>
-        </a>
-    {% endfor %}
+        {% endif %}
+
+        {% for treeItem in page.header.navigation.tree %}
+            {% if treeItem.children|length > 0 %}
+                <div class="navigation-flyout"
+                     data-flyout-menu-id="{{ treeItem.category.id }}">
+                    <div class="container">
+                        {% sw_include '@Storefront/storefront/layout/navigation/flyout.html.twig' with {
+                            navigationTree: treeItem,
+                            level: level + 1,
+                            page: page
+                        } only %}
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
 {% endblock %}

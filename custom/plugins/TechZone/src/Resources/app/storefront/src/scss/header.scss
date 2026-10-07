@@ -188,6 +188,15 @@ $top-bar-height: 48px;
         color: $color-text;
         font-weight: 600;
 
+        &.home-link {
+            appearance: none;
+            background: transparent;
+            border: 0;
+            cursor: pointer;
+            font: inherit;
+            font-weight: 600;
+        }
+
         .main-navigation-link-text {
             border-bottom: 2px solid transparent;
             padding-bottom: 3px;
@@ -211,6 +220,17 @@ $top-bar-height: 48px;
                 border-bottom-color: $color-text;
             }
         }
+    }
+}
+
+.navigation-flyout-link {
+    color: $color-text;
+    transition: none;
+
+    &:hover,
+    &:focus {
+        color: $color-text;
+        padding-left: 0;
     }
 }
 
