@@ -1,12 +1,70 @@
 @import 'variables';
 
-// Product card and shared storefront styles.
-// Product cards use .product-box.
+.cms-listing-col {
+    display: flex;
+}
+
 .product-box {
-    font-size: 16px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    overflow: hidden;
+    border: 0;
+    border-radius: 22px;
+    background: $color-secondary;
+
+    .card-body {
+        display: flex;
+        flex-direction: column;
+        flex: 1 1 auto;
+        padding: 0 16px 16px;
+    }
+
+    .product-info {
+        display: flex;
+        flex-direction: column;
+        flex: 1 1 auto;
+    }
+
+    .product-quick-view-wrap {
+        margin: 0 -16px 16px;
+    }
+
+    .product-image-wrapper {
+        height: 240px;
+        margin-bottom: 0;
+        flex-basis: auto;
+    }
+
+    .product-image-link {
+        display: block;
+    }
+
+    .product-image {
+        width: 100%;
+        height: 100%;
+        max-width: none;
+        max-height: none;
+        object-fit: cover;
+    }
+
+    .product-variant-characteristics {
+        min-height: 0;
+        margin: 0;
+    }
 
     .product-name {
-        color: $color-primary;
+        height: auto;
+        margin-bottom: 8px;
+        line-height: 1.3;
+    }
 
+    .product-description {
+        height: 54px;
+        margin-top: 0;
+    }
+
+    .product-price-info {
+        margin-top: auto;
     }
 }
