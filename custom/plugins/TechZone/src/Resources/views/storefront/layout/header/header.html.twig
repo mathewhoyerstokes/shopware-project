@@ -14,7 +14,7 @@
                 <div class="col-12 order-1 col-sm-auto order-sm-2 header-actions-col">
                     <div class="row no-gutters">
                         {% block layout_header_navigation_toggle %}
-                            <div class="col d-sm-none">
+                            <div class="col-auto header-menu-col">
                                 <div class="menu-button">
                                     {% block layout_header_navigation_toggle_button %}
                                         <button class="btn nav-main-toggle-btn header-actions-btn"
@@ -31,7 +31,7 @@
                         {% endblock %}
 
                         {% block layout_header_search_toggle %}
-                            <div class="col-auto d-sm-none">
+                            <div class="col-auto header-search-toggle-col">
                                 <div class="search-toggle">
                                     <button class="btn header-actions-btn search-toggle-btn js-search-toggle-btn collapsed"
                                             type="button"
@@ -62,7 +62,7 @@
                         {% endif %}
 
                         {% block layout_header_actions_account %}
-                            <div class="col-auto">
+                            <div class="col-auto header-account-col">
                                 <div class="account-menu">
                                     {% sw_include '@Storefront/storefront/layout/header/actions/account-widget.html.twig' %}
                                 </div>
