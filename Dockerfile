@@ -45,6 +45,8 @@ ADD --chown=sw6 . .
 RUN printf '%s\n' '{' '  "config": {' '    "allow-plugins": true' '  }' '}' > "$COMPOSER_HOME/config.json" \
     && composer install --no-dev --no-interaction --optimize-autoloader \
     && APP_URL="http://localhost" DATABASE_URL="" bin/console assets:install \
+    && mkdir -p public/bundles/techzone \
+    && cp -a custom/plugins/TechZone/src/Resources/public/. public/bundles/techzone/ \
     && rm -Rf var/cache \
     && touch install.lock \
     && mkdir -p var/cache
