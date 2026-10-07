@@ -1,0 +1,16 @@
+@import 'variables';
+
+.footer-main {
+    background: $color-primary;
+    color: $color-secondary;
+    border-top: 0;
+
+    a,
+    .footer-link,
+    .footer-column-headline,
+    .footer-copyright,
+    .footer-vat,
+    .icon {
+        color: $color-secondary;
+    }
+}

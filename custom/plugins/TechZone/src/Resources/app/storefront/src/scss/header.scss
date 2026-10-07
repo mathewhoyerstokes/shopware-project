@@ -165,6 +165,11 @@ $top-bar-height: 48px;
             color: $color-text;
         }
 
+        .header-cart-col {
+            display: flex;
+            align-items: center;
+        }
+
         .header-cart-btn {
             display: inline-flex;
             align-items: center;
@@ -227,11 +232,14 @@ $top-bar-height: 48px;
             }
 
             @include media-breakpoint-down(md) {
+                position: static;
+
                 #searchCollapse {
                     top: calc(100% + 8px);
                     right: auto;
-                    left: 0;
-                    width: calc(100vw - 32px);
+                    left: 50%;
+                    width: calc(100% - 32px);
+                    transform: translateX(-50%);
                 }
             }
         }
