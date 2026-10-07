@@ -131,13 +131,17 @@ $top-bar-height: 48px;
 
     .header-actions-col {
         justify-self: end;
+        align-self: stretch;
+        display: flex;
+        align-items: stretch;
         color: $color-text;
 
         > .row {
             display: flex;
-            align-items: center;
+            align-items: stretch;
             justify-content: flex-end;
             flex-wrap: nowrap;
+            width: 100%;
             margin: 0;
         }
 
@@ -177,6 +181,8 @@ $top-bar-height: 48px;
 
         .header-search-toggle-col {
             position: relative;
+            display: flex;
+            align-items: center;
 
             .search-toggle {
                 display: flex;
@@ -185,7 +191,7 @@ $top-bar-height: 48px;
 
             #searchCollapse {
                 position: absolute;
-                top: calc(100% + 8px);
+                top: calc(100% + 24px);
                 right: 0;
                 z-index: 30;
                 width: 280px;
@@ -222,6 +228,7 @@ $top-bar-height: 48px;
 
             @include media-breakpoint-down(md) {
                 #searchCollapse {
+                    top: calc(100% + 8px);
                     right: auto;
                     left: 0;
                     width: calc(100vw - 32px);
@@ -231,10 +238,12 @@ $top-bar-height: 48px;
 
         .header-account-col {
             position: relative;
+            display: flex;
+            align-items: center;
 
             #accountCollapse {
                 position: absolute;
-                top: calc(100% + 8px);
+                top: calc(100% + 24px);
                 right: 0;
                 z-index: 30;
                 width: 240px;
@@ -242,6 +251,10 @@ $top-bar-height: 48px;
 
             @include media-breakpoint-down(md) {
                 margin-left: auto;
+
+                #accountCollapse {
+                    top: calc(100% + 8px);
+                }
             }
         }
 
