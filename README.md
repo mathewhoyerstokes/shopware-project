@@ -2,6 +2,8 @@
 
 Shopware 6.3 shop customized through the TechZone plugin. Storefront changes live in the plugin, not in Shopware core.
 
+The live storefront is deployed on Vercel at https://shopware-project.vercel.app.
+
 ## Quick View
 
 Shoppers can preview a product from the listing without leaving the page.
