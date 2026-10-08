@@ -1,0 +1,32 @@
+{% block element_hero %}
+    {% set config = element.fieldConfig.elements %}
+    {% set media = element.data.media %}
+
+    <section class="cms-element-hero">
+        {% if media and media.url %}
+            <img class="cms-element-hero__image"
+                 src="{{ media|sw_encode_media_url }}"
+                 alt="{{ media.translated.alt|default('') }}">
+        {% else %}
+            <img class="cms-element-hero__image"
+                 src="{{ asset('bundles/techzone/hero.jpg') }}"
+                 alt="">
+        {% endif %}
+
+        <div class="cms-element-hero__content">
+            {% if config.headline.value %}
+                <h1 class="cms-element-hero__title">{{ config.headline.value }}</h1>
+            {% endif %}
+
+            {% if config.text.value %}
+                <p class="cms-element-hero__text">{{ config.text.value }}</p>
+            {% endif %}
+
+            {% if config.buttonText.value and config.buttonUrl.value %}
+                <a class="cms-element-hero__button" href="{{ config.buttonUrl.value }}">
+                    {{ config.buttonText.value }}
+                </a>
+            {% endif %}
+        </div>
+    </section>
+{% endblock %}
