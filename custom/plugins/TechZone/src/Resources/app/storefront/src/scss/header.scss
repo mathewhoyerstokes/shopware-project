@@ -309,6 +309,7 @@ $top-bar-height: 48px;
         .main-navigation-link-text {
             border-bottom: 2px solid transparent;
             padding-bottom: 3px;
+            transition: border-bottom-color 0.3s ease;
         }
 
         &.active,
