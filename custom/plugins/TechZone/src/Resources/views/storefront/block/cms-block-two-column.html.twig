@@ -1,0 +1,7 @@
+{% block block_two_column %}
+    {% set element = block.slots.getSlot('two-column') %}
+
+    <div class="col-12" data-cms-element-id="{{ element.id }}">
+        {% sw_include '@Storefront/storefront/element/cms-element-two-column.html.twig' ignore missing %}
+    </div>
+{% endblock %}

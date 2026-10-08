@@ -8,7 +8,15 @@
         'techzone-hero.text': 'Text',
         'techzone-hero.buttonText': 'Button text',
         'techzone-hero.buttonUrl': 'Button link',
-        'techzone-hero.image': 'Image'
+        'techzone-hero.image': 'Image',
+        'techzone-two-column.label': 'Two column',
+        'techzone-two-column.background': 'Background',
+        'techzone-two-column.headline': 'Heading',
+        'techzone-two-column.text': 'Text',
+        'techzone-two-column.buttonText': 'Button text',
+        'techzone-two-column.buttonUrl': 'Button link',
+        'techzone-two-column.buttonTwoText': 'Second button text',
+        'techzone-two-column.buttonTwoUrl': 'Second button link'
     });
 
     Component.register('sw-cms-el-hero', {
@@ -196,7 +204,7 @@
     Shopware.Service('cmsService').registerCmsBlock({
         name: 'hero',
         label: 'techzone-hero.label',
-        category: 'image',
+        category: 'custom',
         component: 'sw-cms-block-hero',
         previewComponent: 'sw-cms-preview-hero',
         defaultConfig: {
@@ -211,5 +219,160 @@
                 type: 'hero'
             }
         }
+    });
+
+    Component.register('sw-cms-el-two-column', {
+        template: [
+            '<div class="sw-cms-el-two-column" :style="previewStyle">',
+            '<h2 style="margin:0;font-size:28px;line-height:1.05;">{{ headline }}</h2>',
+            '<div>',
+            '<p style="margin:0 0 12px;">{{ text }}</p>',
+            '<span v-if="buttonText" style="display:inline-block;margin-right:8px;padding:8px 12px;background:#fff;border:1px solid #d5d5d5;font-size:12px;font-weight:700;">{{ buttonText }}</span>',
+            '<span v-if="buttonTwoText" style="display:inline-block;padding:8px 12px;background:#fff;border:1px solid #d5d5d5;font-size:12px;font-weight:700;">{{ buttonTwoText }}</span>',
+            '</div>',
+            '</div>'
+        ].join(''),
+
+        mixins: [
+            Mixin.getByName('cms-element')
+        ],
+
+        computed: {
+            headline: function () {
+                return this.element.config.headline.value;
+            },
+
+            text: function () {
+                return this.element.config.text.value;
+            },
+
+            buttonText: function () {
+                return this.element.config.buttonText.value;
+            },
+
+            buttonTwoText: function () {
+                return this.element.config.buttonTwoText.value;
+            },
+
+            previewStyle: function () {
+                return {
+                    background: this.element.config.backgroundColor.value || '#ececec',
+                    color: '#1a1a1a',
+                    display: 'grid',
+                    gridTemplateColumns: '1fr 1.15fr',
+                    gap: '24px',
+                    alignItems: 'center',
+                    minHeight: '180px',
+                    padding: '28px'
+                };
+            }
+        },
+
+        created: function () {
+            this.initElementConfig('two-column');
+            this.initElementData('two-column');
+        }
+    });
+
+    Component.register('sw-cms-el-config-two-column', {
+        template: [
+            '<div class="sw-cms-el-config-two-column">',
+            '<sw-colorpicker :label="$tc(\'techzone-two-column.background\')" colorOutput="hex" :alpha="false" :zIndex="10000" v-model="element.config.backgroundColor.value" @input="onElementUpdate"></sw-colorpicker>',
+            '<sw-field type="text" :label="$tc(\'techzone-two-column.headline\')" v-model="element.config.headline.value" @input="onElementUpdate"></sw-field>',
+            '<sw-field type="textarea" :label="$tc(\'techzone-two-column.text\')" v-model="element.config.text.value" @input="onElementUpdate"></sw-field>',
+            '<sw-field type="text" :label="$tc(\'techzone-two-column.buttonText\')" v-model="element.config.buttonText.value" @input="onElementUpdate"></sw-field>',
+            '<sw-field type="text" :label="$tc(\'techzone-two-column.buttonUrl\')" v-model="element.config.buttonUrl.value" @input="onElementUpdate"></sw-field>',
+            '<sw-field type="text" :label="$tc(\'techzone-two-column.buttonTwoText\')" v-model="element.config.buttonTwoText.value" @input="onElementUpdate"></sw-field>',
+            '<sw-field type="text" :label="$tc(\'techzone-two-column.buttonTwoUrl\')" v-model="element.config.buttonTwoUrl.value" @input="onElementUpdate"></sw-field>',
+            '</div>'
+        ].join(''),
+
+        mixins: [
+            Mixin.getByName('cms-element')
+        ],
+
+        created: function () {
+            this.initElementConfig('two-column');
+        },
+
+        methods: {
+            onElementUpdate: function () {
+                this.$emit('element-update', this.element);
+            }
+        }
+    });
+
+    Component.register('sw-cms-el-preview-two-column', {
+        template: '<div style="height:100%;min-height:80px;display:grid;grid-template-columns:1fr 1fr;gap:8px;align-items:center;padding:12px;background:#ececec;"><strong>Heading</strong><span>Text and buttons</span></div>'
+    });
+
+    Component.register('sw-cms-block-two-column', {
+        template: '<div class="sw-cms-block-two-column"><slot name="two-column"></slot></div>'
+    });
+
+    Component.register('sw-cms-preview-two-column', {
+        template: '<div style="height:80px;display:grid;grid-template-columns:1fr 1.15fr;gap:8px;align-items:center;padding:8px;background:#ececec;font-size:12px;"><strong>Heading</strong><span>Text and buttons</span></div>'
+    });
+
+    Shopware.Service('cmsService').registerCmsElement({
+        name: 'two-column',
+        label: 'techzone-two-column.label',
+        component: 'sw-cms-el-two-column',
+        configComponent: 'sw-cms-el-config-two-column',
+        previewComponent: 'sw-cms-el-preview-two-column',
+        defaultConfig: {
+            backgroundColor: {
+                source: 'static',
+                value: '#ececec'
+            },
+            headline: {
+                source: 'static',
+                value: 'Shop the latest'
+            },
+            text: {
+                source: 'static',
+                value: 'Electronics, clothing, toys and cards, all in one place.'
+            },
+            buttonText: {
+                source: 'static',
+                value: 'Shop now'
+            },
+            buttonUrl: {
+                source: 'static',
+                value: '/'
+            },
+            buttonTwoText: {
+                source: 'static',
+                value: 'View clothing'
+            },
+            buttonTwoUrl: {
+                source: 'static',
+                value: '/Clothing/'
+            }
+        }
+    });
+
+    Shopware.Service('cmsService').registerCmsBlock({
+        name: 'two-column',
+        label: 'techzone-two-column.label',
+        category: 'custom',
+        component: 'sw-cms-block-two-column',
+        previewComponent: 'sw-cms-preview-two-column',
+        defaultConfig: {
+            marginBottom: '0',
+            marginTop: '0',
+            marginLeft: '0',
+            marginRight: '0',
+            sizingMode: 'full_width'
+        },
+        slots: {
+            'two-column': {
+                type: 'two-column'
+            }
+        }
+    });
+
+    Component.override('sw-cms-sidebar', {
+        template: '{% block sw_cms_sidebar_block_overview_category_options %}{% parent %}<option value="custom">Custom components</option>{% endblock %}'
     });
 })();

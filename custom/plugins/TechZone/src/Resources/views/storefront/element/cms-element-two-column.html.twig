@@ -1,0 +1,38 @@
+{% block element_two_column %}
+    {% set config = element.fieldConfig.elements %}
+    {% set background = '#ececec' %}
+
+    {% if config.backgroundColor.value matches '/^#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/' %}
+        {% set background = config.backgroundColor.value %}
+    {% endif %}
+
+    <section class="cms-element-two-column" style="background-color: {{ background }};">
+        <div class="cms-element-two-column__inner">
+            {% if config.headline.value %}
+                <h2 class="cms-element-two-column__title">{{ config.headline.value }}</h2>
+            {% endif %}
+
+            <div class="cms-element-two-column__copy">
+                {% if config.text.value %}
+                    <div class="cms-element-two-column__text">{{ config.text.value }}</div>
+                {% endif %}
+
+                {% if (config.buttonText.value and config.buttonUrl.value) or (config.buttonTwoText.value and config.buttonTwoUrl.value) %}
+                    <div class="cms-element-two-column__actions">
+                        {% if config.buttonText.value and config.buttonUrl.value %}
+                            <a class="cms-element-two-column__button" href="{{ config.buttonUrl.value }}">
+                                {{ config.buttonText.value }}
+                            </a>
+                        {% endif %}
+
+                        {% if config.buttonTwoText.value and config.buttonTwoUrl.value %}
+                            <a class="cms-element-two-column__button" href="{{ config.buttonTwoUrl.value }}">
+                                {{ config.buttonTwoText.value }}
+                            </a>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+{% endblock %}
