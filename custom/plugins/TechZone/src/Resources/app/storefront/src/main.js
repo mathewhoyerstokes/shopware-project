@@ -5,6 +5,6 @@ import ProductFinderPlugin from './plugin/product-finder/product-finder.plugin';
 
 const PluginManager = window.PluginManager;
 
-PluginManager.register('QuickView', QuickViewPlugin, '[data-listing]');
+PluginManager.register('QuickView', QuickViewPlugin, 'body');
 PluginManager.register('StickyBuyBar', StickyBuyBarPlugin, '[data-sticky-buy-bar="true"]');
 PluginManager.register('ProductFinder', ProductFinderPlugin, '[data-product-finder="true"]');
