@@ -26,12 +26,36 @@ The markup is `src/Resources/views/storefront/component/custom/sticky-buy-bar.ht
 
 ## Product finder
 
-A two-step finder sits at the top of the homepage. The shopper picks a focus, then a colour, and Show Matches opens the Home category filtered by those choices.
+A two-step finder sits at the bottom of the homepage, just above the footer. The shopper picks a focus, then a colour, and Show Matches opens the Home category filtered by those choices.
 
 Each radio `value` is a real property option ID from the admin, not the label. The script joins the two IDs with `|`, because Shopware reads listing filters as `?properties=id1|id2`. Options in different property groups must both match, so Focus plus Colour returns only products that have both.
 
 A product also has to be in the Home category and visible on the TechZone Geelong sales channel, or the listing will not show it.
 
-The markup is `src/Resources/views/storefront/component/custom/product-finder.html.twig`, included from `page/content/index.html.twig`. `product-finder.plugin.js` switches the steps and builds the filter URL. The styles are in `base.scss`.
+The markup is `src/Resources/views/storefront/component/custom/product-finder.html.twig`, included from `page/content/index.html.twig` after the shopping-experience sections, and only when the page action is `home`. `product-finder.plugin.js` switches the steps and builds the filter URL. The styles are in `base.scss`.
 
-After a storefront JavaScript change, rebuild with `bin/build-storefront.sh`. After a style change, run `bin/console theme:compile`.
+## Shopping experience blocks
+
+Custom blocks live in the TechZone plugin and show up in Shopping Experiences under the **Custom components** category. That category is added in `src/Resources/public/administration/js/tech-zone.js`, which also registers the blocks. Shopware’s own Text, Images, and Commerce blocks stay in their own categories.
+
+To use one, open Content, then Shopping Experiences, edit the layout, and choose **Custom components** from the block category dropdown.
+
+**Hero** is a full-width image with a dark overlay and the text on top of it. The fields are image, headline, text, button text, and button link. The button is shown when both the text and the link are filled in. If no image is chosen, the storefront uses `bundles/techzone/hero.jpg`. The storefront templates are `element/cms-element-hero.html.twig` and `block/cms-block-hero.html.twig`. `src/Content/Cms/HeroCmsElementResolver.php` loads the selected media. The layout styles are in `src/Resources/app/storefront/src/scss/hero.scss`. On the homepage the hero sits flush under the header.
+
+**Two column** is a full-width band. The heading is on the left. The text and up to two buttons are on the right. On a small screen the heading stacks above the text. The background starts as light gray (`#ececec`) and can be changed with the color picker. A button is shown only when both its text and its link are set. The storefront templates are `element/cms-element-two-column.html.twig` and `block/cms-block-two-column.html.twig`. The styles are in `src/Resources/app/storefront/src/scss/two-column.scss`.
+
+These blocks are part of the layout saved in Shopping Experiences. Adding them in the local admin does not add them to the live layout. The live layout is edited in the Vercel admin after the plugin code is deployed.
+
+## Twig templates
+
+Storefront markup is overridden in `custom/plugins/TechZone/src/Resources/views/storefront`. A template uses `{% sw_extends %}` on the matching Shopware template, then replaces a named `{% block %}`. Shopware renders the plugin version of that block and leaves the rest of the core template alone. `{% sw_include %}` pulls in another template, and `{{ parent() }}` keeps the original block content when the override only needs to wrap it.
+
+The homepage template, `page/content/index.html.twig`, drops the breadcrumb and prints the shopping-experience sections. After those sections, on the home page only, it includes the product finder so the finder stays below the CMS blocks and just above the footer.
+
+Navigation templates turn the desktop Home item into a flyout of image cards, and the phone and iPad menu into the same cards at full width. The close control is only the X. Facebook and Instagram links sit at the bottom of that menu. `layout/navigation/category-card-image.html.twig` uses the category image when one is assigned, and otherwise a bundled image for Stem, Cards, Toys, and Clothing.
+
+Header templates rebuild the top bar, logo, search, account menu, and the main header row. `base.html.twig` keeps that header sticky. The footer template empties the default hotline, link columns, payment logos, service menu, VAT note, and copyright so those core blocks do not render.
+
+Product templates add the Quick View button around the product image, and the product page appends the sticky buy bar after the normal product content.
+
+After a Twig change, clear the cache with `bin/console cache:clear --no-warmup` and `bin/console cache:pool:clear cache.http`. Production Twig keeps the previous template until that cache is cleared. After a storefront JavaScript change, rebuild with `bin/build-storefront.sh`. After a style change, run `bin/console theme:compile`.

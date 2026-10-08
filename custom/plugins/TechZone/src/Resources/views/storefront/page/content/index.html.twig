@@ -27,12 +27,10 @@
 
                 {% sw_include "@Storefront/storefront/section/cms-section-" ~ section.type ~ ".html.twig" %}
             </div>
-
-            {% for block in section.blocks %}
-                {% if block.type == 'hero' %}
-                    {% sw_include '@Storefront/storefront/component/custom/product-finder.html.twig' %}
-                {% endif %}
-            {% endfor %}
         {% endfor %}
     </div>
+
+    {% if controllerAction is same as('home') %}
+        {% sw_include '@Storefront/storefront/component/custom/product-finder.html.twig' %}
+    {% endif %}
 {% endblock %}
