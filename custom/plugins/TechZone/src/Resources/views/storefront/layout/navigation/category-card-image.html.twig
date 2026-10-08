@@ -1,0 +1,17 @@
+{% if category.media %}
+    <img class="home-nav-card-image"
+         src="{{ category.media|sw_encode_media_url }}"
+         alt="">
+{% else %}
+    {% set cardFallbacks = {
+        'Stem': 'stem.webp',
+        'Cards': 'cards.jpeg',
+        'Toys': 'toys.webp',
+        'Clothing': 'clothing.jpeg'
+    } %}
+    {% if cardFallbacks[name] is defined %}
+        <img class="home-nav-card-image"
+             src="{{ asset('bundles/techzone/nav/' ~ cardFallbacks[name]) }}"
+             alt="">
+    {% endif %}
+{% endif %}

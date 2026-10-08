@@ -7,7 +7,8 @@ body {
 }
 
 .icon {
-    color: $color-text;
+    color: $color-icon;
+    transition: color 0.2s;
 
     > svg {
         fill: currentColor;
@@ -17,6 +18,13 @@ body {
             fill: currentColor;
         }
     }
+}
+
+a:hover .icon,
+button:hover .icon,
+.btn:hover .icon,
+.navigation-flyout-close:hover .icon {
+    color: $color-icon-hover;
 }
 
 input:not([type='checkbox']):not([type='radio']):not([type='hidden']):not([type='submit']):not([type='button']):not([type='reset']),

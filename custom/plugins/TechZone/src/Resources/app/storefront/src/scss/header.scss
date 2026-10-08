@@ -146,18 +146,17 @@ $top-bar-height: 48px;
         }
 
         .header-actions-btn {
-            color: $color-text;
+            color: $color-icon;
 
-            &,
+            svg,
+            path {
+                fill: currentColor;
+                stroke: currentColor;
+            }
+
             &:hover,
             &:focus {
-                color: $color-text;
-
-                svg,
-                path {
-                    fill: $color-text;
-                    stroke: $color-text;
-                }
+                color: $color-icon-hover;
             }
         }
 
@@ -362,15 +361,12 @@ $top-bar-height: 48px;
 .navigation-offcanvas-link {
     color: $color-text;
 
-    &.is-home-link,
-    &.is-back-link,
-    &.is-current-category,
     &:hover,
     &:focus {
         color: $color-text;
 
         .icon {
-            color: $color-text;
+            color: $color-icon-hover;
         }
     }
 }

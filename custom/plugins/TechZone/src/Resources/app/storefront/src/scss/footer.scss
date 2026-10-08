@@ -10,7 +10,9 @@
     .footer-column-headline,
     .footer-copyright,
     .footer-vat,
-    .icon {
+    .icon,
+    a:hover .icon,
+    button:hover .icon {
         color: $color-secondary;
     }
 }

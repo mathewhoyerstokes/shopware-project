@@ -1,0 +1,24 @@
+{% sw_extends '@Storefront/storefront/layout/navigation/offcanvas/item-link.html.twig' %}
+
+{% block layout_navigation_offcanvas_navigation_categories_list_category_item_link %}
+    <a class="home-nav-card navigation-offcanvas-link nav-item nav-link{% if isActive %} active{% endif %}{% if hasChildren %} js-navigation-offcanvas-link{% endif %}"
+       href="{{ url }}"
+        {% if hasChildren %}
+            data-href="{{ path('frontend.menu.offcanvas', {'navigationId': item.category.id}) }}"
+        {% endif %}
+       itemprop="url"
+       title="{{ name }}">
+        {% sw_include '@Storefront/storefront/layout/navigation/category-card-image.html.twig' with {
+            category: item.category,
+            name: name
+        } %}
+        <span class="home-nav-card-name" itemprop="name">
+            {{ name }}
+            {% if hasChildren %}
+                <span class="navigation-offcanvas-link-icon js-navigation-offcanvas-loading-icon">
+                    {% sw_icon 'arrow-medium-right' style { 'pack':'solid', 'size': 'sm' } %}
+                </span>
+            {% endif %}
+        </span>
+    </a>
+{% endblock %}

@@ -28,12 +28,17 @@
             left: 0;
             background: rgba(0, 0, 0, 0.28);
             pointer-events: none;
+            transition: background 0.35s ease;
         }
 
         &:hover,
         &:focus {
             color: $color-secondary;
             text-decoration: none;
+
+            &::after {
+                background: rgba(0, 0, 0, 0.48);
+            }
 
             .home-nav-card-image {
                 transform: scale(1.04);
@@ -61,6 +66,148 @@
             font-size: 16px;
             font-weight: 600;
             line-height: 1.2;
+        }
+    }
+}
+
+.navigation-offcanvas-list.home-nav-cards {
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-content: stretch;
+    gap: 12px;
+    padding: 0 16px 24px;
+
+    .navigation-offcanvas-list-item {
+        background: transparent;
+        border: 0;
+    }
+
+    .home-nav-card {
+        flex: none;
+        width: 100%;
+        height: 168px;
+        padding: 0;
+        justify-content: flex-start;
+    }
+}
+
+.navigation-offcanvas-headline {
+    color:#6B7280;
+    padding-right: 56px;
+    font-size: 20px;
+    font-weight: 600;
+    padding-bottom: 40px;
+    padding-top: 17px;
+}
+
+.offcanvas.navigation-offcanvas {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+
+    .offcanvas-content-container {
+        flex: 1 1 auto;
+        min-height: 0;
+        overflow-y: auto;
+    }
+}
+
+.navigation-offcanvas-social {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 16px;
+    flex: 0 0 auto;
+    padding: 16px 16px 20px;
+    background: $color-secondary;
+}
+
+.navigation-offcanvas-social-link {
+    display: flex;
+    color: $color-icon;
+    transition: color 0.2s;
+
+    &:hover,
+    &:focus {
+        color: $color-icon-hover;
+    }
+
+    svg {
+        display: block;
+        width: 22px;
+        height: 22px;
+    }
+}
+
+.navigation-flyout-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+
+    .icon {
+        transition: color 0.2s, transform 1s;
+
+        svg {
+            top: 0;
+        }
+    }
+
+    &:hover .icon,
+    &:focus .icon {
+        transform: rotate(180deg);
+    }
+}
+
+.offcanvas.navigation-offcanvas .offcanvas-close {
+    position: absolute;
+    top: 16px;
+    right: 12px;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: $color-icon;
+    box-shadow: none;
+    transition: color 0.2s;
+
+    &,
+    .icon {
+        color: $color-icon;
+    }
+
+    .icon {
+        transition: color 0.2s, transform 1s;
+
+        svg {
+            top: 0;
+        }
+    }
+
+    .icon svg,
+    .icon path,
+    .icon use {
+        fill: currentColor;
+    }
+
+    &:hover,
+    &:focus,
+    &:active {
+        background: transparent;
+        color: $color-icon-hover;
+        box-shadow: none;
+        outline: none;
+
+        .icon {
+            color: $color-icon-hover;
+            transform: rotate(180deg);
         }
     }
 }

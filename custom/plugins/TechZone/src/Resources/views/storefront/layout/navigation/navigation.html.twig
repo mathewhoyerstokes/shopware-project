@@ -21,7 +21,7 @@
                         <div class="col"></div>
                         <div class="col-auto">
                             <div class="navigation-flyout-close js-close-flyout-menu">
-                                {% sw_icon 'x' %}
+                                {% sw_icon 'x' style { 'size': 'sm' } %}
                             </div>
                         </div>
                     </div>
@@ -39,11 +39,10 @@
                                    itemprop="url"
                                    title="{{ name }}">
                             {% endif %}
-                                    {% if category.media %}
-                                        <img class="home-nav-card-image"
-                                             src="{{ category.media|sw_encode_media_url }}"
-                                             alt="">
-                                    {% endif %}
+                                    {% sw_include '@Storefront/storefront/layout/navigation/category-card-image.html.twig' with {
+                                        category: category,
+                                        name: name
+                                    } %}
                                     <span class="home-nav-card-name">{{ name }}</span>
                             {% if category.type == 'folder' %}
                                 </div>

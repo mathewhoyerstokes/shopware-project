@@ -12,6 +12,12 @@ button {
     border-color: $color-button;
     color: $color-secondary;
 
+    .icon,
+    &:hover .icon,
+    &:focus .icon {
+        color: $color-secondary;
+    }
+
     &:hover,
     &:focus {
         background-color: $color-button-hover;
