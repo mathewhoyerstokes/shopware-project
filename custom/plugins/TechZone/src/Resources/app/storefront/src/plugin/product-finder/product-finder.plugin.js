@@ -7,7 +7,6 @@ export default class ProductFinderQuizPlugin extends Plugin {
         this.totalSteps = 2;
         this.listingBaseUrl = this.el.getAttribute('data-listing-url');
 
-        // Locate internal component control selectors securely
         this.btnNext = DomAccess.querySelector(this.el, '[data-finder-next]');
         this.btnBack = DomAccess.querySelector(this.el, '[data-finder-back]');
         this.indicator = DomAccess.querySelector(this.el, '[data-finder-step-indicator]');
@@ -16,7 +15,6 @@ export default class ProductFinderQuizPlugin extends Plugin {
     }
 
     _registerEvents() {
-        // Unlock navigation paths once a selection is actively confirmed
         this.el.addEventListener('change', () => {
             this.btnNext.removeAttribute('disabled');
         });
@@ -27,10 +25,10 @@ export default class ProductFinderQuizPlugin extends Plugin {
 
     _handleNextStep() {
         if (this.currentStep < this.totalSteps) {
-            // Transition view matrix visibility panels
             DomAccess.querySelector(this.el, `[data-finder-step="${this.currentStep}"]`).classList.add('is-hidden');
             this.currentStep++;
             DomAccess.querySelector(this.el, `[data-finder-step="${this.currentStep}"]`).classList.remove('is-hidden');
+            this._showSelectedGroup();
 
             this.btnBack.classList.remove('is-hidden');
             this.btnNext.setAttribute('disabled', 'true');
@@ -47,33 +45,54 @@ export default class ProductFinderQuizPlugin extends Plugin {
             this.currentStep--;
             DomAccess.querySelector(this.el, `[data-finder-step="${this.currentStep}"]`).classList.remove('is-hidden');
 
-            if (this.currentStep === 1) this.btnBack.classList.add('is-hidden');
+            if (this.currentStep === 1) {
+                this.btnBack.classList.add('is-hidden');
+            }
+
             this.btnNext.removeAttribute('disabled');
             this.btnNext.innerText = 'Continue';
             this.indicator.innerText = `Step ${this.currentStep} of ${this.totalSteps}`;
         }
     }
 
-    /**
-     * Build standard e-commerce filter arrays and synchronize results against native listings
-     */
-    _compileAndExecuteFilterQuery() {
-        const selectedRadioElements = this.el.querySelectorAll('input[type="radio"]:checked');
-        const propertyIds = [];
+    _showSelectedGroup() {
+        const focus = this.el.querySelector('input[name="focus"]:checked');
+        const groupId = focus ? focus.value : '';
+        const question = this.el.querySelector('[data-finder-question]');
 
-        selectedRadioElements.forEach(radio => {
-            propertyIds.push(radio.value);
+        if (question && focus) {
+            const label = focus.getAttribute('data-finder-question');
+
+            if (label) {
+                question.textContent = label;
+            }
+        }
+
+        this.el.querySelectorAll('[data-finder-group]').forEach((group) => {
+            const matches = group.getAttribute('data-finder-group') === groupId;
+            group.classList.toggle('is-hidden', !matches);
+
+            if (matches) {
+                group.querySelectorAll('input').forEach((input) => {
+                    input.checked = false;
+                });
+            }
         });
+    }
 
-        // Construct standard Shopware URL filtering strings matching default request models
-        // Properties are passed as query parameters (e.g. ?properties=id1,id2)
-        const filterQueryString = `?properties=${propertyIds.join('|')}`;
-        const routingTarget = `${this.listingBaseUrl}${filterQueryString}`;
+    _compileAndExecuteFilterQuery() {
+        const selected = this.el.querySelector('[data-finder-group]:not(.is-hidden) input[name="property"]:checked');
+
+        if (!selected || !selected.value) {
+            return;
+        }
+
+        let target = this.listingBaseUrl;
+        target += `${target.indexOf('?') === -1 ? '?' : '&'}properties=${selected.value}`;
 
         this.btnNext.innerText = 'Searching...';
         this.btnNext.setAttribute('disabled', 'true');
 
-        // Execute hard cross-origin viewport redirect window updates mapping to the filtered catalog view
-        window.location.href = routingTarget;
+        window.location.href = target;
     }
 }

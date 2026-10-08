@@ -26,13 +26,13 @@ The markup is `src/Resources/views/storefront/component/custom/sticky-buy-bar.ht
 
 ## Product finder
 
-A two-step finder sits at the bottom of the homepage, just above the footer. The shopper picks a focus, then a colour, and Show Matches opens the Home category filtered by those choices.
+A two-step finder sits at the bottom of the homepage, just above the footer. Step 1 lists property groups from the admin, such as Trading Cards, Pokemon, and Stem products. Step 2 lists only the options inside the group the shopper picked, such as Chinese, English, and Japanese for Pokemon, or bikes and Cars for Stem products. Show Matches opens `/finder` filtered by that one option.
 
-Each radio `value` is a real property option ID from the admin, not the label. The script joins the two IDs with `|`, because Shopware reads listing filters as `?properties=id1|id2`. Options in different property groups must both match, so Focus plus Colour returns only products that have both.
+The labels and option ids are read from the database, so renaming a group or option in the admin changes the finder. The old color and Focus groups are left out. A product appears only when that option is assigned to it and the product is visible on the TechZone Geelong sales channel. An option with nothing assigned, such as bikes, still shows as a choice and then returns no products.
 
-A product also has to be in the Home category and visible on the TechZone Geelong sales channel, or the listing will not show it.
+These properties are shop data, not plugin code. Committing and deploying the finder does not create them on the Vercel site. After the plugin is live, create the same groups in the Vercel admin and assign the options to products. The live shop reads its own database, so the option ids do not need to match the local ones.
 
-The markup is `src/Resources/views/storefront/component/custom/product-finder.html.twig`, included from `page/content/index.html.twig` after the shopping-experience sections, and only when the page action is `home`. `product-finder.plugin.js` switches the steps and builds the filter URL. The styles are in `base.scss`.
+The markup is `src/Resources/views/storefront/component/custom/product-finder.html.twig`, included from `page/content/index.html.twig` after the shopping-experience sections, and only when the page action is `home`. `src/Subscriber/ProductFinderSubscriber.php` loads the groups onto the homepage. `product-finder.plugin.js` switches the steps. `src/Storefront/Controller/ProductFinderController.php` serves `/finder` and loads the matching products. The results template is `page/finder/index.html.twig`. The styles are in `base.scss`.
 
 ## Shopping experience blocks
 

@@ -1,0 +1,31 @@
+{% sw_extends '@Storefront/storefront/base.html.twig' %}
+
+{% block base_content %}
+    {% set finder = page.extensions.productFinder %}
+    {% set products = finder.products %}
+
+    <div class="cms-page product-finder-results">
+        <h1 class="search-headline">
+            {% if finder.groupName and finder.optionName %}
+                {{ finder.groupName }}: {{ finder.optionName }}
+            {% else %}
+                Matches
+            {% endif %}
+        </h1>
+
+        {% if products and products.total > 0 %}
+            <div class="row cms-listing-row">
+                {% for product in products %}
+                    <div class="cms-listing-col col-sm-6 col-lg-4 col-xl-3">
+                        {% sw_include '@Storefront/storefront/component/product/card/box.html.twig' with {
+                            layout: 'standard',
+                            displayMode: 'standard'
+                        } %}
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="product-finder-results__empty">No products match that choice.</p>
+        {% endif %}
+    </div>
+{% endblock %}
