@@ -59,6 +59,13 @@ $top-bar-height: 48px;
     position: relative;
     background: $color-secondary;
 
+    @include media-breakpoint-down(md) {
+        > .container {
+            padding-left: 0;
+            padding-right: 0;
+        }
+    }
+
     .header-row {
         display: grid;
         grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);

@@ -3,23 +3,11 @@
 {% block layout_navigation_offcanvas_navigation_categories %}
     <div class="navigation-offcanvas-container js-navigation-offcanvas">
         <div class="navigation-offcanvas-overlay-content js-navigation-offcanvas-overlay-content">
-            {% if not isRoot %}
-                {% sw_include '@Storefront/storefront/layout/navigation/offcanvas/show-all-link.html.twig' %}
-
-                {% sw_include '@Storefront/storefront/layout/navigation/offcanvas/active-item-link.html.twig' with { item: active } %}
-
-                {% sw_include '@Storefront/storefront/layout/navigation/offcanvas/back-link.html.twig' with { item: active } %}
-            {% else %}
-                {% sw_include '@Storefront/storefront/layout/navigation/offcanvas/general-headline.html.twig' %}
-            {% endif %}
+            {% sw_include '@Storefront/storefront/layout/navigation/offcanvas/general-headline.html.twig' %}
 
             <ul class="list-unstyled navigation-offcanvas-list home-nav-cards">
-                {% if not isRoot and page.navigation.active.type != "folder" %}
-                    {% sw_include '@Storefront/storefront/layout/navigation/offcanvas/show-active-link.html.twig' with { item: active } %}
-                {% endif %}
-
-                {% for item in children.tree %}
-                    {% sw_include '@Storefront/storefront/layout/navigation/offcanvas/item-link.html.twig' with { item: item, activeId: activeId } %}
+                {% for item in navigation.tree %}
+                    {% sw_include '@Storefront/storefront/layout/navigation/offcanvas/item-link.html.twig' with { item: item, activeId: navigation.active.id } %}
                 {% endfor %}
             </ul>
         </div>

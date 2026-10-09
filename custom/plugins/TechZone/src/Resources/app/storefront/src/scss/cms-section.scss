@@ -1,0 +1,13 @@
+@import 'variables';
+
+.cms-section {
+    padding-top: 80px;
+}
+
+.cms-section:has(.cms-block-hero) {
+    padding-top: 0;
+}
+
+.cms-sections {
+    padding-bottom: 80px;
+}

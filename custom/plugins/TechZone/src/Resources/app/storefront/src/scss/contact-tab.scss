@@ -136,9 +136,22 @@
     }
 }
 
+@media (max-width: 991.98px) {
+    .contact-tab__button {
+        width: 52px;
+        height: 52px;
+        flex: 0 0 52px;
+
+        svg {
+            width: 19px;
+            height: 19px;
+        }
+    }
+}
+
 @media (max-width: 480px) {
     .contact-tab {
-        --contact-panel-width: calc(100vw - 65px);
+        --contact-panel-width: calc(100vw - 72px);
         top: 120px;
     }
 }
