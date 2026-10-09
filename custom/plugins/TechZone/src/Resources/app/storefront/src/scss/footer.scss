@@ -16,3 +16,43 @@
         color: $color-secondary;
     }
 }
+
+.scroll-up-button {
+    right: 30px;
+    bottom: 30px;
+
+    .btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 60px;
+        height: 60px;
+        padding: 0;
+        border: 0;
+        border-radius: 0;
+        background: $color-primary;
+        color: $color-secondary;
+        transition: transform 0.35s ease;
+
+        .icon {
+            display: flex;
+            color: $color-secondary;
+
+            svg {
+                width: 24px;
+                height: 24px;
+            }
+        }
+
+        &:hover,
+        &:focus,
+        &:focus-visible,
+        &:active {
+            background: $color-primary;
+            border-color: $color-primary;
+            color: $color-secondary;
+            outline: none;
+            box-shadow: none;
+        }
+    }
+}

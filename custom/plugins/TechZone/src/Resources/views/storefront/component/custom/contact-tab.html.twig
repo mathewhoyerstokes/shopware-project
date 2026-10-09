@@ -1,0 +1,36 @@
+<div class="contact-tab" data-contact-tab>
+    <button type="button"
+            class="contact-tab__button"
+            data-contact-tab-open
+            aria-expanded="false"
+            aria-controls="contact-tab-panel"
+            aria-label="Contact">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M8.1 15.4C6.7 13.9 5.5 12.2 4.6 10.4M4.6 10.4L8.1 7.3L7.3 3H3C3 5.5 3.6 8.1 4.6 10.4Z" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M8.1 15.4C9.6 16.8 11.2 18 13.1 18.8M13.1 18.8L16.2 15.4L20.5 16.2V20.5C17.9 20.5 15.4 19.9 13.1 18.8Z" stroke="currentColor" stroke-width="1.5"/>
+        </svg>
+    </button>
+
+    <div class="contact-tab__panel" id="contact-tab-panel" aria-hidden="true">
+        <div class="contact-tab__header">
+            <span>Contact</span>
+            <button type="button" class="contact-tab__close" data-contact-tab-close aria-label="Close">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M7 17L12 12L17 7M12 12L17 17M12 12L7 7" stroke="currentColor" stroke-width="1.5"/>
+                </svg>
+            </button>
+        </div>
+
+        <div class="contact-tab__body">
+            <p>Questions about a product or an order? Call the shop.</p>
+            <p class="contact-tab__hours">
+                Mon–Thu: 9:00–5:00<br>
+                Fri: 9:00–3:30
+            </p>
+            <a class="contact-tab__action" href="tel:+61300000000">Call 03 0000 0000</a>
+
+            <p class="contact-tab__services">Services</p>
+            <a class="contact-tab__action contact-tab__action--quiet" href="{{ path('frontend.account.login.page') }}">Your account</a>
+        </div>
+    </div>
+</div>

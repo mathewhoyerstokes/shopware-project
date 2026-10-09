@@ -1,0 +1,144 @@
+@import 'variables';
+
+.contact-tab {
+    --contact-panel-width: 336px;
+
+    position: fixed;
+    top: 180px;
+    right: 0;
+    z-index: 40;
+    display: flex;
+    align-items: flex-start;
+    transform: translateX(var(--contact-panel-width));
+    transition: transform 0.35s ease;
+
+    &.is-open {
+        transform: translateX(0);
+    }
+
+    &__button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 65px;
+        height: 65px;
+        flex: 0 0 65px;
+        padding: 0;
+        border: 0;
+        border-radius: 0;
+        background: $color-primary;
+        color: $color-secondary;
+        cursor: pointer;
+        transition: background 0.35s ease;
+
+        &:hover,
+        &:focus,
+        &:focus-visible,
+        &:active {
+            background: #d39b14;
+            color: $color-secondary;
+            outline: none;
+            box-shadow: none;
+        }
+    }
+
+    &__panel {
+        width: var(--contact-panel-width);
+        background: $color-secondary;
+        box-shadow: 0 12px 26px rgba(62, 69, 91, 0.15);
+    }
+
+    &__header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        min-height: 65px;
+        padding: 0 8px 0 20px;
+        background: #f4f4f4;
+        color: $color-text;
+        font-size: 16px;
+        font-weight: 600;
+    }
+
+    &__close {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        padding: 0;
+        border: 0;
+        border-radius: 0;
+        background: transparent;
+        color: $color-text;
+        cursor: pointer;
+
+        &:hover,
+        &:focus,
+        &:focus-visible,
+        &:active {
+            outline: none;
+            box-shadow: none;
+        }
+    }
+
+    &__body {
+        padding: 24px 20px 28px;
+        color: $color-text;
+        font-size: 15px;
+        line-height: 1.5;
+
+        p {
+            margin: 0 0 16px;
+        }
+    }
+
+    &__hours {
+        color: #6b7280;
+    }
+
+    &__services {
+        margin-top: 8px;
+        font-weight: 600;
+    }
+
+    &__action {
+        display: block;
+        width: 100%;
+        margin-bottom: 12px;
+        padding: 12px 16px;
+        border: 0;
+        border-radius: $button-radius;
+        background: $color-button;
+        color: $color-secondary;
+        font-weight: 600;
+        text-align: center;
+        text-decoration: none;
+
+        &:hover,
+        &:focus {
+            background: $color-button-hover;
+            color: $color-secondary;
+            text-decoration: none;
+        }
+
+        &--quiet {
+            background: transparent;
+            border: 1px solid #d1d5db;
+            color: $color-text;
+
+            &:hover,
+            &:focus {
+                background: #f4f4f4;
+                color: $color-text;
+            }
+        }
+    }
+}
+
+@media (max-width: 480px) {
+    .contact-tab {
+        --contact-panel-width: calc(100vw - 65px);
+        top: 120px;
+    }
+}
