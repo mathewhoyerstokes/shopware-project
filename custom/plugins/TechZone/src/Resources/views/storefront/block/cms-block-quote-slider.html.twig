@@ -1,0 +1,7 @@
+{% block block_quote_slider %}
+    {% set element = block.slots.getSlot('quote-slider') %}
+
+    <div class="col-12" data-cms-element-id="{{ element.id }}">
+        {% sw_include '@Storefront/storefront/element/cms-element-quote-slider.html.twig' ignore missing %}
+    </div>
+{% endblock %}

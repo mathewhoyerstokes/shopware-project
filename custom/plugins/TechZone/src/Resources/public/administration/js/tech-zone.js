@@ -16,7 +16,11 @@
         'techzone-two-column.buttonText': 'Button text',
         'techzone-two-column.buttonUrl': 'Button link',
         'techzone-two-column.buttonTwoText': 'Second button text',
-        'techzone-two-column.buttonTwoUrl': 'Second button link'
+        'techzone-two-column.buttonTwoUrl': 'Second button link',
+        'techzone-quote-slider.label': 'Quote slider',
+        'techzone-quote-slider.title': 'Title',
+        'techzone-quote-slider.quote': 'Quote',
+        'techzone-quote-slider.image': 'Image'
     });
 
     Component.register('sw-cms-el-hero', {
@@ -368,6 +372,188 @@
         slots: {
             'two-column': {
                 type: 'two-column'
+            }
+        }
+    });
+
+    Component.register('sw-cms-el-quote-slider', {
+        template: [
+            '<div class="sw-cms-el-quote-slider" style="position:relative;min-height:180px;background:#f2f2f2;">',
+            '<div style="width:62%;height:180px;background:#e5e7eb;"></div>',
+            '<div style="position:absolute;top:24px;right:12px;width:46%;padding:16px;background:#fff;">',
+            '<h2 style="margin:0 0 8px;font-size:18px;">{{ title }}</h2>',
+            '<p style="margin:0;">{{ quote }}</p>',
+            '</div>',
+            '</div>'
+        ].join(''),
+
+        mixins: [
+            Mixin.getByName('cms-element')
+        ],
+
+        computed: {
+            title: function () {
+                return this.element.config.title1.value;
+            },
+
+            quote: function () {
+                return this.element.config.quote1.value;
+            }
+        },
+
+        created: function () {
+            this.initElementConfig('quote-slider');
+            this.initElementData('quote-slider');
+        }
+    });
+
+    Component.register('sw-cms-el-config-quote-slider', {
+        template: [
+            '<div class="sw-cms-el-config-quote-slider">',
+            '<div v-for="index in [1, 2, 3, 4]" :key="index" style="margin-bottom:24px;">',
+            '<h3 style="margin:0 0 12px;font-size:14px;">Card {{ index }}</h3>',
+            '<sw-media-upload-v2 variant="regular" :uploadTag="uploadTag(index)" :source="previewSource(index)" :allowMultiSelect="false" :caption="$tc(\'techzone-quote-slider.image\')" @media-upload-sidebar-open="onOpenMediaModal(index)" @media-upload-remove-image="onImageRemove(index)"></sw-media-upload-v2>',
+            '<sw-upload-listener :uploadTag="uploadTag(index)" autoUpload @media-upload-finish="onImageUpload(index, $event)"></sw-upload-listener>',
+            '<sw-field type="text" :label="$tc(\'techzone-quote-slider.title\')" v-model="element.config[\'title\' + index].value" @input="onElementUpdate"></sw-field>',
+            '<sw-field type="textarea" :label="$tc(\'techzone-quote-slider.quote\')" v-model="element.config[\'quote\' + index].value" @input="onElementUpdate"></sw-field>',
+            '</div>',
+            '<sw-media-modal-v2 variant="regular" v-if="mediaModalIsOpen" :allowMultiSelect="false" @media-modal-selection-change="onSelectionChanges" @modal-close="onCloseModal"></sw-media-modal-v2>',
+            '</div>'
+        ].join(''),
+
+        mixins: [
+            Mixin.getByName('cms-element')
+        ],
+
+        inject: ['repositoryFactory'],
+
+        data: function () {
+            return {
+                mediaModalIsOpen: false,
+                activeIndex: 1
+            };
+        },
+
+        computed: {
+            mediaRepository: function () {
+                return this.repositoryFactory.create('media');
+            }
+        },
+
+        created: function () {
+            this.initElementConfig('quote-slider');
+        },
+
+        methods: {
+            onElementUpdate: function () {
+                this.$emit('element-update', this.element);
+            },
+
+            uploadTag: function (index) {
+                return 'cms-element-quote-slider-' + this.element.id + '-' + index;
+            },
+
+            previewSource: function (index) {
+                var key = 'media' + index;
+                var data = this.element.data && this.element.data[key];
+
+                if (data && data.id) {
+                    return data;
+                }
+
+                return this.element.config[key].value;
+            },
+
+            onImageUpload: function (index, payload) {
+                var self = this;
+
+                this.mediaRepository.get(payload.targetId, Shopware.Context.api).then(function (mediaEntity) {
+                    self.setMedia(index, mediaEntity);
+                });
+            },
+
+            onImageRemove: function (index) {
+                this.setMedia(index, null);
+            },
+
+            onOpenMediaModal: function (index) {
+                this.activeIndex = index;
+                this.mediaModalIsOpen = true;
+            },
+
+            onCloseModal: function () {
+                this.mediaModalIsOpen = false;
+            },
+
+            onSelectionChanges: function (mediaEntity) {
+                this.setMedia(this.activeIndex, mediaEntity[0]);
+            },
+
+            setMedia: function (index, media) {
+                var key = 'media' + index;
+
+                this.element.config[key].value = media ? media.id : null;
+
+                if (!this.element.data) {
+                    this.$set(this.element, 'data', {});
+                }
+
+                this.$set(this.element.data, key, media || null);
+                this.$emit('element-update', this.element);
+            }
+        }
+    });
+
+    Component.register('sw-cms-el-preview-quote-slider', {
+        template: '<div style="height:100%;min-height:80px;position:relative;background:#f2f2f2;"><div style="width:58%;height:100%;min-height:80px;background:#e5e7eb;"></div><div style="position:absolute;top:16px;right:8px;width:48%;padding:8px;background:#fff;font-size:12px;font-weight:700;">Quote slider</div></div>'
+    });
+
+    Component.register('sw-cms-block-quote-slider', {
+        template: '<div class="sw-cms-block-quote-slider"><slot name="quote-slider"></slot></div>'
+    });
+
+    Component.register('sw-cms-preview-quote-slider', {
+        template: '<div style="height:80px;position:relative;background:#f2f2f2;"><div style="width:58%;height:100%;background:#e5e7eb;"></div><div style="position:absolute;top:16px;right:8px;width:48%;padding:8px;background:#fff;font-size:12px;font-weight:700;">Quote slider</div></div>'
+    });
+
+    Shopware.Service('cmsService').registerCmsElement({
+        name: 'quote-slider',
+        label: 'techzone-quote-slider.label',
+        component: 'sw-cms-el-quote-slider',
+        configComponent: 'sw-cms-el-config-quote-slider',
+        previewComponent: 'sw-cms-el-preview-quote-slider',
+        defaultConfig: {
+            media1: { source: 'static', value: null, entity: { name: 'media' } },
+            title1: { source: 'static', value: 'Easy to find' },
+            quote1: { source: 'static', value: 'I found the right pack in a couple of clicks, and it arrived exactly as shown.' },
+            media2: { source: 'static', value: null, entity: { name: 'media' } },
+            title2: { source: 'static', value: 'Worth coming back' },
+            quote2: { source: 'static', value: 'The range is clear, and I already know where I will look next time.' },
+            media3: { source: 'static', value: null, entity: { name: 'media' } },
+            title3: { source: 'static', value: 'Ready for game night' },
+            quote3: { source: 'static', value: 'Everything we needed was in one place, so we spent the evening playing instead of searching.' },
+            media4: { source: 'static', value: null, entity: { name: 'media' } },
+            title4: { source: 'static', value: 'A shop that gets it' },
+            quote4: { source: 'static', value: 'The photos match the product, and checkout did not get in the way.' }
+        }
+    });
+
+    Shopware.Service('cmsService').registerCmsBlock({
+        name: 'quote-slider',
+        label: 'techzone-quote-slider.label',
+        category: 'custom',
+        component: 'sw-cms-block-quote-slider',
+        previewComponent: 'sw-cms-preview-quote-slider',
+        defaultConfig: {
+            marginBottom: '20px',
+            marginTop: '20px',
+            marginLeft: '20px',
+            marginRight: '20px',
+            sizingMode: 'boxed'
+        },
+        slots: {
+            'quote-slider': {
+                type: 'quote-slider'
             }
         }
     });

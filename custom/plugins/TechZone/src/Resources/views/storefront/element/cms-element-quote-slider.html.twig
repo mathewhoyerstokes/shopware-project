@@ -1,0 +1,68 @@
+{% block element_quote_slider %}
+    {% set config = element.fieldConfig.elements %}
+    {% set slides = element.data.slides|default({}) %}
+    {% set sliderOptions = {
+        slider: {
+            navPosition: 'bottom',
+            speed: 500,
+            nav: true,
+            controls: true,
+            autoHeight: false,
+            items: 1,
+            slideBy: 1,
+            loop: true,
+            mouseDrag: true,
+            startIndex: 1
+        }
+    } %}
+
+    <section class="cms-element-quote-slider">
+        <div class="base-slider quote-slider has-nav-outside has-dots-outside"
+             data-base-slider="true"
+             data-base-slider-options="{{ sliderOptions|json_encode }}">
+            <div class="quote-slider__container" data-base-slider-container="true">
+                {% for index in 1..4 %}
+                    {% set title = config['title' ~ index].value %}
+                    {% set quote = config['quote' ~ index].value %}
+                    {% set media = slides[index]|default(null) %}
+
+                    <div class="quote-slider__slide{% if loop.first != true %} is-not-first{% endif %}">
+                        <article class="quote-slider__card">
+                            <div class="quote-slider__image">
+                                {% if media and media.url %}
+                                    <img src="{{ media|sw_encode_media_url }}"
+                                         alt="{{ media.translated.alt|default(title) }}">
+                                {% endif %}
+                            </div>
+
+                            <div class="quote-slider__quote">
+                                {% if title %}
+                                    <h2 class="quote-slider__title">{{ title }}</h2>
+                                {% endif %}
+
+                                {% if quote %}
+                                    <p class="quote-slider__text">{{ quote }}</p>
+                                {% endif %}
+                            </div>
+                        </article>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <div class="image-slider-controls-container">
+                <div class="base-slider-controls" data-base-slider-controls="true">
+                    <button class="base-slider-controls-prev image-slider-controls-prev is-nav-prev-outside"
+                            type="button"
+                            aria-label="Previous">
+                        {% sw_icon 'arrow-head-left' %}
+                    </button>
+                    <button class="base-slider-controls-next image-slider-controls-next is-nav-next-outside"
+                            type="button"
+                            aria-label="Next">
+                        {% sw_icon 'arrow-head-right' %}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
