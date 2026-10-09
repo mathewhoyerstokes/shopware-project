@@ -2,7 +2,7 @@
 
 Shopware 6.3 shop customized through the TechZone plugin. Storefront changes live in the plugin, not in Shopware core.
 
-The live storefront is deployed on Vercel at https://shopware-project.vercel.app.
+The shop is at http://204.168.132.214. Anyone with that link can open it in a browser. The admin is at http://204.168.132.214/admin.
 
 ## Quick View
 
@@ -30,7 +30,7 @@ A two-step finder sits at the bottom of the homepage, just above the footer. Ste
 
 The labels and option ids are read from the database, so renaming a group or option in the admin changes the finder. The old color and Focus groups are left out. A product appears only when that option is assigned to it and the product is visible on the TechZone Geelong sales channel. An option with nothing assigned, such as bikes, still shows as a choice and then returns no products.
 
-These properties are shop data, not plugin code. Committing and deploying the finder does not create them on the Vercel site. After the plugin is live, create the same groups in the Vercel admin and assign the options to products. The live shop reads its own database, so the option ids do not need to match the local ones.
+These properties are shop data, not plugin code. Deploying the finder does not create them. They are edited in the admin at http://204.168.132.214/admin. That shop already has the Trading Cards, Pokemon, and Stem products groups.
 
 The markup is `src/Resources/views/storefront/component/custom/product-finder.html.twig`, included from `page/content/index.html.twig` after the shopping-experience sections, and only when the page action is `home`. `src/Subscriber/ProductFinderSubscriber.php` loads the groups onto the homepage. `product-finder.plugin.js` switches the steps. `src/Storefront/Controller/ProductFinderController.php` serves `/finder` and loads the matching products. The results template is `page/finder/index.html.twig`. The styles are in `base.scss`.
 
@@ -44,7 +44,7 @@ To use one, open Content, then Shopping Experiences, edit the layout, and choose
 
 **Two column** is a full-width band. The heading is on the left. The text and up to two buttons are on the right. On a small screen the heading stacks above the text. The background starts as light gray (`#ececec`) and can be changed with the color picker. A button is shown only when both its text and its link are set. The storefront templates are `element/cms-element-two-column.html.twig` and `block/cms-block-two-column.html.twig`. The styles are in `src/Resources/app/storefront/src/scss/two-column.scss`.
 
-These blocks are part of the layout saved in Shopping Experiences. Adding them in the local admin does not add them to the live layout. The live layout is edited in the Vercel admin after the plugin code is deployed.
+These blocks are part of the layout saved in Shopping Experiences. The layout for http://204.168.132.214 is edited in that shop's admin.
 
 ## Twig templates
 
