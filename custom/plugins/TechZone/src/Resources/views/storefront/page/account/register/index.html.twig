@@ -1,0 +1,31 @@
+{% sw_extends '@Storefront/storefront/page/account/register/index.html.twig' %}
+
+{% block page_account_register %}
+    <div class="account-login-page">
+        <div class="account-login-page__image">
+            <img src="{{ asset('bundles/techzone/account-login.jpg') }}" alt="Graded Shining Tyranitar card">
+        </div>
+
+        <div class="account-login-page__form">
+            {% if app.request.attributes.get('_route') == 'frontend.account.login.page' %}
+                {% sw_include '@Storefront/storefront/component/account/login.html.twig' with {
+                    cardTitle: 'Sign in'
+                } %}
+
+                <p class="account-login-page__switch">
+                    Need an account?
+                    <a href="{{ path('frontend.account.register.page') }}">Sign up</a>
+                </p>
+            {% else %}
+                {% sw_include '@Storefront/storefront/component/account/register.html.twig' with {
+                    cardTitle: 'Create an account'
+                } %}
+
+                <p class="account-login-page__switch">
+                    Already have an account?
+                    <a href="{{ path('frontend.account.login.page') }}">Sign in</a>
+                </p>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

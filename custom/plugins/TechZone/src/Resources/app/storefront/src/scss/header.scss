@@ -6,12 +6,20 @@ $top-bar-height: 48px;
     position: sticky;
     top: 0;
     z-index: 20;
-    background: $color-background;
+    background: $color-secondary;
     box-shadow: 0 10px 24px rgba(0, 0, 0, 0);
     transition: box-shadow 0.3s ease;
 
     &.is-scrolled {
         box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+
+        .header-row {
+            padding: 24px 0;
+
+            @include media-breakpoint-down(md) {
+                padding: 16px 0 8px;
+            }
+        }
     }
 }
 
@@ -49,7 +57,7 @@ $top-bar-height: 48px;
 
 .header-main {
     position: relative;
-    background: $color-background;
+    background: $color-secondary;
 
     .header-row {
         display: grid;
@@ -57,13 +65,14 @@ $top-bar-height: 48px;
         align-items: center;
         position: static;
         margin: 0;
-        padding: 24px 0;
+        padding: 8px 0;
+        transition: padding 0.3s ease;
 
         @include media-breakpoint-down(md) {
             display: flex;
             flex-direction: column;
             align-items: stretch;
-            padding: 16px 0 8px;
+            padding: 8px 0 4px;
         }
     }
 
@@ -195,7 +204,7 @@ $top-bar-height: 48px;
 
             #searchCollapse {
                 position: absolute;
-                top: calc(100% + 24px);
+                top: calc(100% + 8px);
                 right: 0;
                 z-index: 30;
                 width: 280px;
@@ -203,6 +212,11 @@ $top-bar-height: 48px;
                 background: transparent;
                 border: 0;
                 box-shadow: none;
+                transition: top 0.3s ease;
+
+                .header-sticky.is-scrolled & {
+                    top: calc(100% + 24px);
+                }
 
                 .input-group-append {
                     display: none;
@@ -234,11 +248,15 @@ $top-bar-height: 48px;
                 position: static;
 
                 #searchCollapse {
-                    top: calc(100% + 8px);
+                    top: calc(100% + 4px);
                     right: auto;
                     left: 50%;
                     width: calc(100% - 32px);
                     transform: translateX(-50%);
+
+                    .header-sticky.is-scrolled & {
+                        top: calc(100% + 8px);
+                    }
                 }
             }
         }
@@ -250,17 +268,26 @@ $top-bar-height: 48px;
 
             #accountCollapse {
                 position: absolute;
-                top: calc(100% + 24px);
+                top: calc(100% + 8px);
                 right: 0;
                 z-index: 30;
                 width: 240px;
+                transition: top 0.3s ease;
+
+                .header-sticky.is-scrolled & {
+                    top: calc(100% + 24px);
+                }
             }
 
             @include media-breakpoint-down(md) {
                 margin-left: auto;
 
                 #accountCollapse {
-                    top: calc(100% + 8px);
+                    top: calc(100% + 4px);
+
+                    .header-sticky.is-scrolled & {
+                        top: calc(100% + 8px);
+                    }
                 }
             }
         }
