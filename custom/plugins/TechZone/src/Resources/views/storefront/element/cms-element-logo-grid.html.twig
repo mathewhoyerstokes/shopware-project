@@ -1,0 +1,34 @@
+{% block element_logo_grid %}
+    {% set config = element.fieldConfig.elements %}
+    {% set items = element.data.items|default({}) %}
+
+    <section class="cms-element-logo-grid">
+        <div class="cms-element-logo-grid__inner">
+            {% if config.headline.value %}
+                <h2 class="cms-element-logo-grid__title">{{ config.headline.value }}</h2>
+            {% endif %}
+
+            <ul class="cms-element-logo-grid__list">
+                {% for index in 1..6 %}
+                    {% set text = config['text' ~ index].value %}
+                    {% set media = items[index]|default(null) %}
+
+                    {% if media or text %}
+                        <li class="cms-element-logo-grid__item">
+                            {% if media and media.url %}
+                                <div class="cms-element-logo-grid__image">
+                                    <img src="{{ media|sw_encode_media_url }}"
+                                         alt="{{ media.translated.alt|default(text) }}">
+                                </div>
+                            {% endif %}
+
+                            {% if text %}
+                                <p class="cms-element-logo-grid__text">{{ text }}</p>
+                            {% endif %}
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+    </section>
+{% endblock %}

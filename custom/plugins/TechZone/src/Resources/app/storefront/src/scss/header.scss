@@ -118,6 +118,20 @@ $top-bar-height: 48px;
             width: auto;
         }
 
+        .navigation-flyout {
+            height: auto;
+            opacity: 1;
+            overflow: hidden;
+            pointer-events: none;
+            clip-path: inset(0 0 100% 0);
+            transition: clip-path 0.35s ease;
+
+            &.is-open {
+                pointer-events: all;
+                clip-path: inset(0 0 0 0);
+            }
+        }
+
         @include media-breakpoint-down(md) {
             display: none;
         }

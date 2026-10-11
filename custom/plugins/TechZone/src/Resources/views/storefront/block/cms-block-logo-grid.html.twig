@@ -1,0 +1,7 @@
+{% block block_logo_grid %}
+    {% set element = block.slots.getSlot('logo-grid') %}
+
+    <div class="col-12" data-cms-element-id="{{ element.id }}">
+        {% sw_include '@Storefront/storefront/element/cms-element-logo-grid.html.twig' ignore missing %}
+    </div>
+{% endblock %}

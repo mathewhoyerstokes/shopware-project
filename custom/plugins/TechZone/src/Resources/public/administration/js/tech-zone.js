@@ -20,7 +20,11 @@
         'techzone-quote-slider.label': 'Quote slider',
         'techzone-quote-slider.title': 'Title',
         'techzone-quote-slider.quote': 'Quote',
-        'techzone-quote-slider.image': 'Image'
+        'techzone-quote-slider.image': 'Image',
+        'techzone-logo-grid.label': 'Logo grid',
+        'techzone-logo-grid.headline': 'Heading',
+        'techzone-logo-grid.image': 'Image',
+        'techzone-logo-grid.text': 'Text'
     });
 
     Component.register('sw-cms-el-hero', {
@@ -554,6 +558,207 @@
         slots: {
             'quote-slider': {
                 type: 'quote-slider'
+            }
+        }
+    });
+
+    Component.register('sw-cms-el-logo-grid', {
+        template: [
+            '<div class="sw-cms-el-logo-grid" style="padding:24px;text-align:center;background:#f2f2f2;">',
+            '<h2 style="max-width:420px;margin:0 auto 20px;font-size:22px;line-height:1.15;white-space:pre-line;">{{ headline }}</h2>',
+            '<div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;">',
+            '<div v-for="index in [1, 2, 3, 4, 5, 6]" :key="index">',
+            '<img v-if="mediaUrl(index)" :src="mediaUrl(index)" style="display:block;max-width:72px;max-height:40px;margin:0 auto 8px;object-fit:contain;">',
+            '<div v-else style="width:36px;height:36px;margin:0 auto 8px;border-radius:50%;background:#1a2744;"></div>',
+            '<div style="font-size:12px;font-weight:600;">{{ itemText(index) }}</div>',
+            '</div>',
+            '</div>',
+            '</div>'
+        ].join(''),
+
+        mixins: [
+            Mixin.getByName('cms-element')
+        ],
+
+        computed: {
+            headline: function () {
+                return this.element.config.headline.value;
+            }
+        },
+
+        created: function () {
+            this.initElementConfig('logo-grid');
+            this.initElementData('logo-grid');
+        },
+
+        methods: {
+            itemText: function (index) {
+                return this.element.config['text' + index].value;
+            },
+
+            mediaUrl: function (index) {
+                var media = this.element.data && this.element.data['media' + index];
+
+                if (media && media.url) {
+                    return media.url;
+                }
+
+                return null;
+            }
+        }
+    });
+
+    Component.register('sw-cms-el-config-logo-grid', {
+        template: [
+            '<div class="sw-cms-el-config-logo-grid">',
+            '<sw-field type="textarea" :label="$tc(\'techzone-logo-grid.headline\')" v-model="element.config.headline.value" @input="onElementUpdate"></sw-field>',
+            '<div v-for="index in [1, 2, 3, 4, 5, 6]" :key="index" style="margin-bottom:24px;">',
+            '<h3 style="margin:0 0 12px;font-size:14px;">Item {{ index }}</h3>',
+            '<sw-media-upload-v2 variant="regular" :uploadTag="uploadTag(index)" :source="previewSource(index)" :allowMultiSelect="false" :caption="$tc(\'techzone-logo-grid.image\')" @media-upload-sidebar-open="onOpenMediaModal(index)" @media-upload-remove-image="onImageRemove(index)"></sw-media-upload-v2>',
+            '<sw-upload-listener :uploadTag="uploadTag(index)" autoUpload @media-upload-finish="onImageUpload(index, $event)"></sw-upload-listener>',
+            '<sw-field type="text" :label="$tc(\'techzone-logo-grid.text\')" v-model="element.config[\'text\' + index].value" @input="onElementUpdate"></sw-field>',
+            '</div>',
+            '<sw-media-modal-v2 variant="regular" v-if="mediaModalIsOpen" :allowMultiSelect="false" @media-modal-selection-change="onSelectionChanges" @modal-close="onCloseModal"></sw-media-modal-v2>',
+            '</div>'
+        ].join(''),
+
+        mixins: [
+            Mixin.getByName('cms-element')
+        ],
+
+        inject: ['repositoryFactory'],
+
+        data: function () {
+            return {
+                mediaModalIsOpen: false,
+                activeIndex: 1
+            };
+        },
+
+        computed: {
+            mediaRepository: function () {
+                return this.repositoryFactory.create('media');
+            }
+        },
+
+        created: function () {
+            this.initElementConfig('logo-grid');
+        },
+
+        methods: {
+            onElementUpdate: function () {
+                this.$emit('element-update', this.element);
+            },
+
+            uploadTag: function (index) {
+                return 'cms-element-logo-grid-' + this.element.id + '-' + index;
+            },
+
+            previewSource: function (index) {
+                var key = 'media' + index;
+                var data = this.element.data && this.element.data[key];
+
+                if (data && data.id) {
+                    return data;
+                }
+
+                return this.element.config[key].value;
+            },
+
+            onImageUpload: function (index, payload) {
+                var self = this;
+
+                this.mediaRepository.get(payload.targetId, Shopware.Context.api).then(function (mediaEntity) {
+                    self.setMedia(index, mediaEntity);
+                });
+            },
+
+            onImageRemove: function (index) {
+                this.setMedia(index, null);
+            },
+
+            onOpenMediaModal: function (index) {
+                this.activeIndex = index;
+                this.mediaModalIsOpen = true;
+            },
+
+            onCloseModal: function () {
+                this.mediaModalIsOpen = false;
+            },
+
+            onSelectionChanges: function (mediaEntity) {
+                this.setMedia(this.activeIndex, mediaEntity[0]);
+            },
+
+            setMedia: function (index, media) {
+                var key = 'media' + index;
+
+                this.element.config[key].value = media ? media.id : null;
+
+                if (!this.element.data) {
+                    this.$set(this.element, 'data', {});
+                }
+
+                this.$set(this.element.data, key, media || null);
+                this.$emit('element-update', this.element);
+            }
+        }
+    });
+
+    Component.register('sw-cms-el-preview-logo-grid', {
+        template: '<div style="height:100%;min-height:80px;padding:12px;text-align:center;background:#f2f2f2;"><strong style="display:block;margin-bottom:8px;">Logo grid</strong><span style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;font-size:11px;"><span>Image<br>Text</span><span>Image<br>Text</span><span>Image<br>Text</span></span></div>'
+    });
+
+    Component.register('sw-cms-block-logo-grid', {
+        template: '<div class="sw-cms-block-logo-grid"><slot name="logo-grid"></slot></div>'
+    });
+
+    Component.register('sw-cms-preview-logo-grid', {
+        template: '<div style="height:80px;padding:8px;text-align:center;background:#f2f2f2;font-size:11px;"><strong style="display:block;margin-bottom:6px;">Logo grid</strong><span style="display:grid;grid-template-columns:repeat(3,1fr);gap:4px;"><span>Image<br>Text</span><span>Image<br>Text</span><span>Image<br>Text</span></span></div>'
+    });
+
+    Shopware.Service('cmsService').registerCmsElement({
+        name: 'logo-grid',
+        label: 'techzone-logo-grid.label',
+        component: 'sw-cms-el-logo-grid',
+        configComponent: 'sw-cms-el-config-logo-grid',
+        previewComponent: 'sw-cms-el-preview-logo-grid',
+        defaultConfig: {
+            headline: {
+                source: 'static',
+                value: 'What makes TechZone different'
+            },
+            media1: { source: 'static', value: null, entity: { name: 'media' } },
+            text1: { source: 'static', value: 'Local shop' },
+            media2: { source: 'static', value: null, entity: { name: 'media' } },
+            text2: { source: 'static', value: 'Cards, toys and tech' },
+            media3: { source: 'static', value: null, entity: { name: 'media' } },
+            text3: { source: 'static', value: 'Easy to find' },
+            media4: { source: 'static', value: null, entity: { name: 'media' } },
+            text4: { source: 'static', value: 'Clear product photos' },
+            media5: { source: 'static', value: null, entity: { name: 'media' } },
+            text5: { source: 'static', value: 'Ready for game night' },
+            media6: { source: 'static', value: null, entity: { name: 'media' } },
+            text6: { source: 'static', value: 'Worth coming back' }
+        }
+    });
+
+    Shopware.Service('cmsService').registerCmsBlock({
+        name: 'logo-grid',
+        label: 'techzone-logo-grid.label',
+        category: 'custom',
+        component: 'sw-cms-block-logo-grid',
+        previewComponent: 'sw-cms-preview-logo-grid',
+        defaultConfig: {
+            marginBottom: '0',
+            marginTop: '0',
+            marginLeft: '0',
+            marginRight: '0',
+            sizingMode: 'full_width'
+        },
+        slots: {
+            'logo-grid': {
+                type: 'logo-grid'
             }
         }
     });
