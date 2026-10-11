@@ -29,7 +29,7 @@
     width: 100%;
     overflow: hidden;
     border: 0;
-    border-radius: 0;
+    border-radius: $button-radius;
     background: $color-secondary;
 
     .card-body {
@@ -80,10 +80,11 @@
             left: auto;
             transform: none;
             opacity: 1;
+            transition: none;
         }
     }
 
-    .product-quick-view {
+    .product-quick-view-wrap .product-quick-view {
         position: absolute;
         top: 12px;
         right: 12px;
@@ -273,6 +274,10 @@
 }
 
 .product-slider {
+    .product-box .product-image-wrapper {
+        aspect-ratio: 2 / 1;
+    }
+
     .tns-slider {
         display: flex;
         align-items: stretch;
