@@ -1,14 +1,27 @@
 {% sw_extends '@Storefront/storefront/component/product/card/box-standard.html.twig' %}
 
+{% block component_product_box_rating %}
+    <div class="product-rating">
+        {% sw_include '@Storefront/storefront/component/review/rating.html.twig' with {
+            points: product.ratingAverage|default(0)
+        } %}
+    </div>
+{% endblock %}
+
+{% block component_product_box_description %}{% endblock %}
+
+{% block component_product_box_variant_characteristics %}{% endblock %}
+
 {% block component_product_box_image %}
     <div class="product-quick-view-wrap">
         {{ parent() }}
 
         <button type="button"
                 class="product-quick-view"
+                aria-label="Quick view"
                 data-quick-view-trigger="true"
                 data-product-url="{{ seoUrl('frontend.detail.page', { 'productId': product.id }) }}">
-            Quick View
+            {% sw_icon 'eye-open' style { 'size': 'sm' } %}
         </button>
     </div>
 {% endblock %}
