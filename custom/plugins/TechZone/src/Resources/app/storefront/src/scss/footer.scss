@@ -15,6 +15,118 @@
     button:hover .icon {
         color: $color-secondary;
     }
+
+    .footer-columns {
+        padding: 48px 0 40px;
+        border: 0;
+    }
+
+    .footer-column {
+        border: 0;
+    }
+
+    .footer-column-headline {
+        padding-top: 0;
+        padding-bottom: 16px;
+        font-size: 18px;
+        font-weight: 700;
+        line-height: 1.3;
+    }
+
+    .footer-column-content-inner {
+        padding-bottom: 24px;
+    }
+
+    .footer-link-item {
+        padding: 6px 0;
+    }
+
+    .footer-link {
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 1.4;
+        text-decoration: none;
+
+        &:hover,
+        &:focus {
+            color: $color-secondary;
+            text-decoration: underline;
+        }
+    }
+
+    .footer-newsletter__label {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        border: 0;
+    }
+
+    .footer-newsletter__input {
+        width: 100%;
+        height: 44px;
+        margin: 0;
+        padding: 0 16px;
+        border: 0;
+        border-radius: $button-radius;
+        background: $color-secondary;
+        box-shadow: none;
+        color: $color-text;
+        line-height: 44px;
+
+        &:focus,
+        &:active {
+            border: 0;
+            background: $color-secondary;
+            box-shadow: none;
+            outline: none;
+        }
+
+        &::placeholder {
+            color: $color-button;
+        }
+    }
+
+    .footer-payment-logos {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 16px;
+
+        svg {
+            display: block;
+            height: 28px;
+            width: auto;
+        }
+    }
+
+    .footer-newsletter__submit {
+        width: 100%;
+        margin-top: 8px;
+        padding: 10px 16px;
+        border: 0;
+        border-radius: $button-radius;
+        background: $color-button;
+        color: $color-secondary;
+        font-size: 14px;
+        font-weight: 600;
+
+        &:hover,
+        &:focus {
+            background: $color-button-hover;
+            color: $color-secondary;
+        }
+    }
+
+    .confirm-message,
+    .confirm-alert {
+        color: $color-secondary;
+        font-size: 14px;
+        line-height: 1.4;
+    }
 }
 
 .scroll-up-button {
